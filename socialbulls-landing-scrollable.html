@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Bulls - Lead Generation System for Contractors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0F2340;
+            --gold: #D4AF37;
+            --off-white: #F8F8F6;
+            --white: #FFFFFF;
+            --text-dark: #1A1A1A;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes scaleIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 15px 60px rgba(212, 175, 55, 0.5); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+
+        .observe-fade {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .observe-fade.in-view {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .observe-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .observe-left.in-view {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .observe-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .observe-right.in-view {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .observe-scale {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .observe-scale.in-view {
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: var(--white);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(15, 35, 64, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+
+        .logo-text:hover {
+            color: var(--gold);
+        }
+
+        .logo-s {
+            color: var(--gold);
+        }
+
+        .logo-b {
+            color: var(--primary-blue);
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== FLOATING CTA ===== */
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--gold) 0%, #E5C158 100%);
+            color: var(--primary-blue);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+            color: var(--white);
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--gold);
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+            opacity: 0;
+            white-space: nowrap;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .scroll-hint p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .scroll-icon {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-icon::before {
+            content: '';
+            width: 3px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: slideUp 1.5s ease-in-out infinite;
+        }
+
+        .cta-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== WHAT I BUILD ===== */
+        .what-i-build {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--white) 0%, #fafaf8 100%);
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 5rem;
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), #E5C158);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(15, 35, 64, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover h3 {
+            color: var(--gold);
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* ===== CASE STUDY ===== */
+        .case-study {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+            color: var(--white);
+            padding: 6rem 2rem;
+            border-radius: 24px;
+            margin: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .case-study-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .case-study-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .case-study-header h2 {
+            font-size: 2.6rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .case-study-header p {
+            font-size: 1.2rem;
+            opacity: 0.92;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .stat:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.25);
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        .stat:hover::before {
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: -1px;
+            line-height: 1;
+            display: block;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 2.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial:hover {
+            border-left: 6px solid var(--gold);
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        .testimonial-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* ===== WHY LIMITED ===== */
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--off-white) 0%, #fafaf8 100%);
+        }
+
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            padding: 2rem;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .about-content p {
+            color: #555;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-content p strong {
+            color: var(--primary-blue);
+        }
+
+        .about-highlight {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .about-highlight h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .about-highlight p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .about-story {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .about-story:hover {
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(15, 35, 64, 0.1);
+        }
+
+        .story-title {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .story-title::before {
+            content: '📍';
+            font-size: 1.5rem;
+        }
+
+        .story-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .why-limited {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, #fafaf8 0%, var(--off-white) 100%);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .column h3 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .column ul {
+            list-style: none;
+        }
+
+        .column li {
+            padding: 1.2rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: #555;
+            line-height: 1.8;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding-right: 1rem;
+        }
+
+        .column li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .column li:hover {
+            background: rgba(212, 175, 55, 0.1);
+            padding-left: 3rem;
+        }
+
+        .column li:hover::before {
+            transform: scale(1.2);
+        }
+
+        /* ===== CHECKLIST ===== */
+        .checklist {
+            padding: 8rem 2rem;
+            background: var(--white);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f8f6 0%, #fafaf8 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .checklist-icon {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .checklist-item:hover .checklist-icon {
+            transform: scale(1.2);
+        }
+
+        .checklist-text {
+            color: var(--text-dark);
+        }
+
+        .checklist-text strong {
+            display: block;
+            color: var(--primary-blue);
+            margin-bottom: 0.4rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+            color: var(--white);
+            padding: 6rem 2rem;
+            text-align: center;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .final-cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, #E5C158 100%);
+            color: var(--primary-blue);
+            padding: 1.1rem 2.8rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-primary:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        footer .logo-text {
+            color: var(--white);
+            font-size: 1.6rem;
+        }
+
+        footer .logo-text:hover {
+            color: var(--gold);
+        }
+
+        footer img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 90vh;
+                padding: 4rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .floating-cta {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .case-study {
+                margin: 4rem 1rem;
+                padding: 3rem 2rem;
+            }
+
+            .what-i-build,
+            .why-limited,
+            .checklist {
+                padding: 4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png" alt="Social Bulls Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">What I Build</a></li>
+                <li><a href="#case-study">Results</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#qualify">For You If</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta">
+        <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-button">Book Call</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="cta-badge fade-in">🎯 Limited Availability</div>
+            <h1 class="fade-in stagger-1">
+                Stop Chasing <span class="highlight">Leads.</span><br>
+                Start <span class="highlight">Closing</span> Them.
+            </h1>
+            <p class="fade-in stagger-2">
+                We generate qualified leads, close the appointments, and deliver everything done-for-you. You focus on delivery.
+            </p>
+            <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary fade-in stagger-3">Get Your Free Strategy Call</a>
+        </div>
+
+        <div class="scroll-hint">
+            <p>Scroll to see how it works</p>
+            <div class="scroll-icon"></div>
+        </div>
+    </section>
+
+    <!-- What I Build -->
+    <section class="what-i-build" id="services">
+        <div class="container">
+            <h2 class="section-title observe-fade">What I Build For You</h2>
+            <p class="section-subtitle">A complete lead generation system that runs on autopilot</p>
+
+            <div class="grid">
+                <div class="card observe-fade stagger-1">
+                    <div class="card-icon">💻</div>
+                    <h3>Landing Pages That Convert</h3>
+                    <p>High-converting landing pages designed to turn cold traffic into warm leads. Every element optimized for your specific service area and niche.</p>
+                </div>
+                <div class="card observe-fade stagger-2">
+                    <div class="card-icon">📣</div>
+                    <h3>Paid Ads That Work</h3>
+                    <p>Facebook, Google, and Angie's List ads that reach contractors ready to buy. We handle setup, targeting, creative, and optimization.</p>
+                </div>
+                <div class="card observe-fade stagger-3">
+                    <div class="card-icon">📞</div>
+                    <h3>Lead Generation & Closing</h3>
+                    <p>I personally generate leads, filter quality prospects, schedule appointments, and close them. You get qualified leads delivered weekly.</p>
+                </div>
+                <div class="card observe-fade stagger-4">
+                    <div class="card-icon">✉️</div>
+                    <h3>Email Automation</h3>
+                    <p>Drip campaigns that nurture leads while you sleep. Follow-ups, objection handling, and reminders all automated and optimized.</p>
+                </div>
+                <div class="card observe-fade stagger-5">
+                    <div class="card-icon">📊</div>
+                    <h3>Done-For-You Tracking</h3>
+                    <p>You see everything: cost per lead, conversion rates, ROI. Daily updates so you always know what's working.</p>
+                </div>
+                <div class="card observe-fade stagger-6">
+                    <div class="card-icon">🎯</div>
+                    <h3>Scaling Strategy</h3>
+                    <p>As we dial in cost per lead, I scale your ads intelligently. Double your leads without doubling your cost.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study -->
+    <section class="case-study" id="case-study">
+        <div class="case-study-content">
+            <div class="case-study-header observe-fade">
+                <h2>Real Results: Elmans Contractors</h2>
+                <p>What's possible when you have a complete system</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat observe-scale stagger-1">
+                    <div class="stat-number">$149K</div>
+                    <div class="stat-label">Revenue Closed</div>
+                </div>
+                <div class="stat observe-scale stagger-2">
+                    <div class="stat-number">55</div>
+                    <div class="stat-label">Free Estimate Appointments</div>
+                </div>
+                <div class="stat observe-scale stagger-3">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Days to Results</div>
+                </div>
+            </div>
+
+            <div class="testimonial observe-fade">
+                <p class="testimonial-text">
+                    "I was skeptical at first, but the system works. In 30 days, we had $149K in contracts and 55 qualified appointments. This is the only lead generation system I'm using."
+                </p>
+                <p class="testimonial-author">— Owner, Elmans Contractors</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-content observe-left">
+                <h2>Who's Behind This</h2>
+
+                <p>
+                    My name is <strong>Bart</strong>, and I'm not your typical agency owner. I personally do everything—landing pages, ads, lead generation, discovery calls, optimization—all of it. Not because I haven't scaled yet, but because I know that's the only way to guarantee results.
+                </p>
+
+                <p>
+                    I started in 2020 during the pandemic, working in the car detailing industry. But I quickly realized something: contractors and service businesses are on another level. Everyone needs roofing, siding, HVAC at some point. It's high-ticket. It's fun. And when you know what you're doing, it's <strong>easy to sell</strong> because the value is obvious.
+                </p>
+
+                <div class="about-highlight">
+                    <h3>What Separates Me</h3>
+                    <p>
+                        I don't use pre-built systems adapted to your business. I build <strong>custom systems tailored specifically for YOU</strong>. This isn't a one-size-fits-all agency. It's one-on-one coaching where I implement the system myself and stay involved every step until you're getting consistent leads.
+                    </p>
+                </div>
+
+                <div class="about-highlight">
+                    <h3>Why I Close Your Discovery Calls</h3>
+                    <p>
+                        Most agencies send leads to you and hope for the best. I personally close every discovery call because I control the entire process—from ad to lead to appointment. I know the leads are qualified. I know you're getting called within hours, not 24 hours later. I know the system works because I'm inside it.
+                    </p>
+                </div>
+
+                <p style="margin-top: 2rem; font-style: italic; color: var(--gold);">
+                    "This isn't outsourcing. It's partnership."
+                </p>
+            </div>
+
+            <div class="about-stories observe-right" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div class="about-story">
+                    <div class="story-title">Started with Cars</div>
+                    <div class="story-content">
+                        Began in 2020 working with car dealerships, rentals, and detailing companies. Learned digital marketing from scratch during the pandemic pivot.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Moved to Contractors</div>
+                    <div class="story-content">
+                        Realized roofing, siding, and HVAC contractors are the sweet spot. Essential service. High-ticket. Hungry for leads. Real results.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Proved It Works</div>
+                    <div class="story-content">
+                        Elmans Contractors: $149K in projects, 55 appointments in 30 days. Not a fluke. This is what happens when one person controls the entire system.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Now Limiting It</div>
+                    <div class="story-content">
+                        I only take 4 clients because I do everything personally. No agencies. No outsourcing critical work. Just me, you, and results.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Limited -->
+    <section class="why-limited" id="why">
+        <div class="container">
+            <h2 class="section-title observe-fade">Why Only 4 Spots Available?</h2>
+
+            <div class="two-column">
+                <div class="observe-left">
+                    <h3>I Do Everything Myself</h3>
+                    <ul>
+                        <li>I build your landing pages</li>
+                        <li>I set up and manage your ads</li>
+                        <li>I close your discovery calls personally</li>
+                        <li>I track metrics and optimize weekly</li>
+                        <li>I scale when it works</li>
+                    </ul>
+                </div>
+                <div class="observe-right">
+                    <h3>This Isn't A Template</h3>
+                    <ul>
+                        <li>Custom service pages for your niche</li>
+                        <li>Hand-built ads (not AI-generated)</li>
+                        <li>Personal appointment setting</li>
+                        <li>Real-time optimization</li>
+                        <li>I'm invested in YOUR success</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="checklist" id="qualify">
+        <div class="container">
+            <h2 class="section-title observe-fade">This Is For You If:</h2>
+            <p class="section-subtitle">You're a contractor or service business that wants a done-for-you lead system</p>
+
+            <div class="checklist-grid">
+                <div class="checklist-item observe-fade stagger-1">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're 6-7 figures</strong>
+                        Already successful, want consistent lead flow
+                    </div>
+                </div>
+                <div class="checklist-item observe-fade stagger-2">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You hate cold calling</strong>
+                        Prefer inbound leads from your market
+                    </div>
+                </div>
+                <div class="checklist-item observe-fade stagger-3">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You can close</strong>
+                        Just need qualified leads delivered to you
+                    </div>
+                </div>
+                <div class="checklist-item observe-fade stagger-4">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're willing to invest</strong>
+                        Ready to invest in a system that works
+                    </div>
+                </div>
+                <div class="checklist-item observe-fade stagger-5">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You want accountability</strong>
+                        Real reporting, real metrics, real results
+                    </div>
+                </div>
+                <div class="checklist-item observe-fade stagger-6">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're ready now</strong>
+                        Not "someday" — ready to book and start
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Requirement -->
+            <div style="margin-top: 4rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(15, 35, 64, 0.1)); border: 2px solid var(--gold); border-radius: 12px; text-align: center;">
+                <h3 style="margin-bottom: 1rem; color: var(--gold); font-size: 1.5rem;">Minimum Investment Required</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">
+                    <strong>$10,000 per month</strong>
+                </p>
+                <p style="color: #666; line-height: 1.8;">
+                    This covers ad spend ($5-7K), lead platform software, my personal service ($2-3K), and optimization. <br>
+                    This is a real partnership with real investment. If you're not prepared to commit $10K/month for consistent lead generation, this isn't the right fit. But if you are — and your business can handle the leads — let's talk.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="observe-fade">
+                <h2>⚠️ Only 4 Spots Remaining</h2>
+                <p>The next contractor through gets guaranteed leads. The one after that goes on the waitlist.</p>
+                <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary">Book Your Free Strategy Call</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png" alt="Social Bulls Logo" style="height: 40px; width: auto; margin-bottom: 1rem;">
+        <p>&copy; 2026 Social Bulls. All rights reserved. | <a href="socialbulls.net">socialbulls.net</a></p>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 2rem; justify-content: center; align-items: center;">
+            <a href="https://www.instagram.com/socialbull_/" target="_blank" style="color: var(--gold); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">
+                Instagram
+            </a>
+            <span style="color: rgba(255,255,255,0.3);">•</span>
+            <a href="https://webflow.com/@social-bull" target="_blank" style="color: var(--gold); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">
+                Portfolio
+            </a>
+        </div>
+
+        <p style="font-size: 0.85rem; margin-top: 1.5rem; color: #999; font-style: italic;">
+            <strong>Disclaimer:</strong> Results are not guaranteed. The results shown with Elmans Contractors are specific to their business, market, and circumstances. Your results may vary based on your industry, location, service quality, and market conditions. Social Bulls does not guarantee equivalent results or specific ROI.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements
+        document.querySelectorAll('[class*="observe-"]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax on scroll
+        let heroElement = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            if (scrollPosition < window.innerHeight * 1.5) {
+                heroElement.style.backgroundPosition = `0 ${scrollPosition * 0.5}px`;
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2500) {
+            const isPercentage = element.textContent.includes('%');
+            const isDollars = element.textContent.includes('$');
+            let current = 0;
+            const increment = target / (duration / 16);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    if (isDollars) {
+                        element.textContent = '$' + target.toLocaleString();
+                    } else if (isPercentage) {
+                        element.textContent = target + '%';
+                    } else {
+                        element.textContent = target;
+                    }
+                    clearInterval(timer);
+                } else {
+                    const displayNum = Math.floor(current);
+                    if (isDollars) {
+                        element.textContent = '$' + displayNum.toLocaleString();
+                    } else if (isPercentage) {
+                        element.textContent = displayNum + '%';
+                    } else {
+                        element.textContent = displayNum;
+                    }
+                }
+            }, 16);
+        }
+
+        // Track which stats have been animated
+        const animatedStats = new Set();
+
+        // Observer for stat counters
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animatedStats.has(entry.target)) {
+                    animatedStats.add(entry.target);
+                    const numberElement = entry.target.querySelector('.stat-number');
+                    if (numberElement) {
+                        const text = numberElement.textContent.trim();
+                        let target = 0;
+                        let hasK = text.includes('K');
+                        let hasDollar = text.includes('$');
+
+                        if (hasK) {
+                            target = parseInt(text.replace(/[$,K]/g, ''));
+                        } else {
+                            target = parseInt(text.replace(/[$,]/g, ''));
+                        }
+
+                        // Store original format info
+                        numberElement.dataset.hasDollar = hasDollar;
+                        numberElement.dataset.hasK = hasK;
+
+                        numberElement.textContent = '0';
+
+                        // Custom animation for counter
+                        let current = 0;
+                        const increment = target / (2500 / 16);
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                let display = target;
+                                if (hasDollar) display = '$' + target.toLocaleString();
+                                if (hasK) display = target + 'K';
+                                numberElement.textContent = display;
+                                clearInterval(timer);
+                            } else {
+                                let display = Math.floor(current);
+                                if (hasDollar) display = '$' + Math.floor(current).toLocaleString();
+                                if (hasK) display = Math.floor(current) + 'K';
+                                numberElement.textContent = display;
+                            }
+                        }, 16);
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // Observe all stat elements
+        document.querySelectorAll('.stat').forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        // Update Calendly links
+        document.querySelectorAll('a[href="https://calendly.com/socialbullagency/30min"]').forEach(link => {
+            link.href = 'https://calendly.com/socialbullagency/30min/socialbulls';
+        });
+    </script>
+</body>
+</html>
