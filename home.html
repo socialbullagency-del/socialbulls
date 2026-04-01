@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Generation for Contractors | Social Bulls - Done-For-You System</title>
+    <meta name="description" content="Premium lead generation system for contractors and service businesses. Get qualified leads, book appointments, close deals. Limited to 4 clients. Start your free strategy call today.">
+    <link rel="icon" type="image/png" href="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0F2340;
+            --gold: #D4AF37;
+            --off-white: #F8F8F6;
+            --white: #FFFFFF;
+            --text-dark: #1A1A1A;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 15px 60px rgba(212, 175, 55, 0.5); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ===== HEADER & NAV ===== */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+            color: var(--white);
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 .highlight {
+            color: var(--gold);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, #E5C158 100%);
+            color: var(--primary-blue);
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .cta-primary:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+            opacity: 0;
+            white-space: nowrap;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .scroll-hint p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .scroll-icon {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-icon::before {
+            content: '';
+            width: 3px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: slideUp 1.5s ease-in-out infinite;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== WHAT I BUILD SECTION ===== */
+        .what-i-build {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ===== CASE STUDY / REAL RESULTS ===== */
+        .case-study {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .case-study-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .case-study-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 3.5rem 2.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--gold);
+            opacity: 0;
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        .stat-number {
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .testimonial {
+            max-width: 600px;
+            margin: 3rem auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* ===== ABOUT ME SECTION ===== */
+        .about-section {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .about-highlight {
+            background: var(--white);
+            padding: 1.5rem;
+            border-left: 4px solid var(--gold);
+            margin: 1.5rem 0;
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
+        }
+
+        .about-highlight h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-story {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .story-content {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== WHY LIMITED ===== */
+        .why-limited {
+            padding: 6rem 2rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .two-column h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .two-column ul {
+            list-style: none;
+        }
+
+        .two-column li {
+            padding: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .two-column li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 800;
+        }
+
+        /* ===== CHECKLIST ===== */
+        .checklist {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .checklist-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .checklist-icon {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 800;
+            min-width: 30px;
+        }
+
+        .checklist-text strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .checklist-text {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== INVESTMENT REQUIREMENT ===== */
+        .investment-box {
+            margin-top: 4rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(15, 35, 64, 0.1));
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .investment-box h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .investment-box p:first-of-type {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .investment-box p:last-of-type {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            padding: 6rem 2rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        footer img {
+            height: 40px;
+            width: auto;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-separator {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            color: #999;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-container,
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .in-view {
+            animation: fadeInUp 0.8s ease-out forwards !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png" alt="Social Bulls Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">What I Build</a></li>
+                <li><a href="#case-study">Results</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#qualify">For You If</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Stop Chasing <span class="highlight">Leads.</span><br>Start <span class="highlight">Closing</span> Them.</h1>
+            <p>We generate qualified leads, close the appointments, and deliver everything done-for-you. You focus on delivery.</p>
+            <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary">Get Your Free Strategy Call</a>
+        </div>
+
+        <div class="scroll-hint">
+            <p>Scroll to see how it works</p>
+            <div class="scroll-icon"></div>
+        </div>
+    </section>
+
+    <!-- What I Build -->
+    <section class="what-i-build" id="services">
+        <div class="container">
+            <h2 class="section-title">What I Build For You</h2>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Custom Landing Pages</h3>
+                    <p>Built specifically for your service area. Not templates. Not AI-generated. Hand-built pages that convert visitors into leads.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Facebook Ad Campaigns</h3>
+                    <p>I set up and manage your ad campaigns myself. Target your exact service area. Nail the cost per lead. Scale when it works.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📞</div>
+                    <h3>Lead Delivery System</h3>
+                    <p>Leads come directly to you. I close the discovery calls personally. No voicemails. No delays. Qualified appointments within hours.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Done-For-You Tracking</h3>
+                    <p>You see everything: cost per lead, conversion rates, ROI. Daily updates so you always know what's working.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Scaling Strategy</h3>
+                    <p>As we dial in cost per lead, I scale your ads intelligently. Double your leads without doubling your cost.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Personal Accountability</h3>
+                    <p>I'm invested in YOUR success. Weekly optimization. Real-time adjustments. No handoffs. No excuses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study -->
+    <section class="case-study" id="case-study">
+        <div class="container">
+            <div class="case-study-header">
+                <h2>Real Results: Elmans Contractors</h2>
+                <p>What's possible when you have a complete system</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-number">$149K</div>
+                    <div class="stat-label">Revenue Closed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">55</div>
+                    <div class="stat-label">Free Estimate Appointments</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Days to Results</div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">
+                    "I was skeptical at first, but the system works. In 30 days, we had $149K in contracts and 55 qualified appointments. This is the only lead generation system I'm using."
+                </p>
+                <p class="testimonial-author">— Owner, Elmans Contractors</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Who's Behind This</h2>
+
+                <p>
+                    My name is <strong>Bart</strong>, and I'm not your typical agency owner. I personally do everything—landing pages, ads, lead generation, discovery calls, optimization—all of it. Not because I haven't scaled yet, but because I know that's the only way to guarantee results.
+                </p>
+
+                <p>
+                    I started in 2020 during the pandemic, working in the car detailing industry. But I quickly realized something: contractors and service businesses are on another level. Everyone needs roofing, siding, HVAC at some point. It's high-ticket. It's fun. And when you know what you're doing, it's <strong>easy to sell</strong> because the value is obvious.
+                </p>
+
+                <div class="about-highlight">
+                    <h3>What Separates Me</h3>
+                    <p>
+                        I don't use pre-built systems adapted to your business. I build <strong>custom systems tailored specifically for YOU</strong>. This isn't a one-size-fits-all agency. It's one-on-one coaching where I implement the system myself and stay involved every step until you're getting consistent leads.
+                    </p>
+                </div>
+
+                <div class="about-highlight">
+                    <h3>Why I Close Your Discovery Calls</h3>
+                    <p>
+                        Most agencies send leads to you and hope for the best. I personally close every discovery call because I control the entire process—from ad to lead to appointment. I know the leads are qualified. I know you're getting called within hours, not 24 hours later. I know the system works because I'm inside it.
+                    </p>
+                </div>
+
+                <p style="margin-top: 2rem; font-style: italic; color: var(--gold);">
+                    "This isn't outsourcing. It's partnership."
+                </p>
+            </div>
+
+            <div class="about-stories">
+                <div class="about-story">
+                    <div class="story-title">Started with Cars</div>
+                    <div class="story-content">
+                        Began in 2020 working with car dealerships, rentals, and detailing companies. Learned digital marketing from scratch during the pandemic pivot.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Moved to Contractors</div>
+                    <div class="story-content">
+                        Realized roofing, siding, and HVAC contractors are the sweet spot. Essential service. High-ticket. Hungry for leads. Real results.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Proved It Works</div>
+                    <div class="story-content">
+                        Elmans Contractors: $149K in projects, 55 appointments in 30 days. Not a fluke. This is what happens when one person controls the entire system.
+                    </div>
+                </div>
+
+                <div class="about-story">
+                    <div class="story-title">Now Limiting It</div>
+                    <div class="story-content">
+                        I only take 4 clients because I do everything personally. No agencies. No outsourcing critical work. Just me, you, and results.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Limited -->
+    <section class="why-limited" id="why">
+        <div class="container">
+            <h2 class="section-title">Why Only 4 Spots Available?</h2>
+
+            <div class="two-column">
+                <div>
+                    <h3>I Do Everything Myself</h3>
+                    <ul>
+                        <li>I build your landing pages</li>
+                        <li>I set up and manage your ads</li>
+                        <li>I close your discovery calls personally</li>
+                        <li>I track metrics and optimize weekly</li>
+                        <li>I scale when it works</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>This Isn't A Template</h3>
+                    <ul>
+                        <li>Custom service pages for your niche</li>
+                        <li>Hand-built ads (not AI-generated)</li>
+                        <li>Personal appointment setting</li>
+                        <li>Real-time optimization</li>
+                        <li>I'm invested in YOUR success</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Investment Requirement -->
+            <div class="investment-box">
+                <h3>Minimum Investment Required</h3>
+                <p>$10,000 per month</p>
+                <p>
+                    This covers ad spend ($5-7K), lead platform software, my personal service ($2-3K), and optimization. This is a real partnership with real investment. If you're not prepared to commit $10K/month for consistent lead generation, this isn't the right fit. But if you are — and your business can handle the leads — let's talk.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="checklist" id="qualify">
+        <div class="container">
+            <h2 class="section-title">This Is For You If:</h2>
+            <p class="section-subtitle">You're a contractor or service business that wants a done-for-you lead system</p>
+
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're 6-7 figures</strong>
+                        Already successful, want consistent lead flow
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You hate cold calling</strong>
+                        Prefer inbound leads from your market
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You can close</strong>
+                        Just need qualified leads delivered to you
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're willing to invest</strong>
+                        Ready to commit $10K/month for lead generation
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You want accountability</strong>
+                        Real reporting, real metrics, real results
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-icon">✓</div>
+                    <div class="checklist-text">
+                        <strong>You're ready now</strong>
+                        Not "someday" — ready to book and start
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>⚠️ Only 4 Spots Remaining</h2>
+            <p>The next contractor through gets guaranteed leads. The one after that goes on the waitlist.</p>
+            <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary">Book Your Free Strategy Call</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png" alt="Social Bulls Logo">
+        <p>&copy; 2026 Social Bulls. All rights reserved. | <a href="https://socialbulls.net">socialbulls.net</a></p>
+
+        <div class="footer-links">
+            <a href="https://www.instagram.com/socialbull_/" target="_blank">Instagram</a>
+            <span class="footer-separator">•</span>
+            <a href="https://webflow.com/@social-bull" target="_blank">Portfolio</a>
+        </div>
+
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> Results are not guaranteed. The results shown with Elmans Contractors are specific to their business, market, and circumstances. Your results may vary based on your industry, location, service quality, and market conditions. Social Bulls does not guarantee equivalent results or specific ROI.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .checklist-item, .about-story, .stat, .testimonial').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
