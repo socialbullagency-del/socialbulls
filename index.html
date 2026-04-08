@@ -107,6 +107,29 @@
             color: var(--gold);
         }
 
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            padding: 0.5rem;
+        }
+
+        .menu-button span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-dark);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .nav-links.active {
+            display: flex !important;
+        }
+
         /* ===== HERO SECTION ===== */
         .hero {
             background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a5c 100%);
@@ -367,6 +390,18 @@
             animation: fadeInUp 0.8s ease-out 0.1s backwards;
         }
 
+        .about-profile-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: block;
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out 0.1s backwards;
+        }
+
         .about-highlight {
             background: var(--white);
             padding: 1.5rem;
@@ -379,18 +414,6 @@
         .about-highlight h3 {
             color: var(--primary-blue);
             margin-bottom: 0.5rem;
-        }
-
-        .about-profile-image {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            margin-bottom: 2rem;
-            display: block;
-            opacity: 0;
-            animation: slideInRight 0.8s ease-out forwards;
         }
 
         .about-stories {
@@ -617,8 +640,54 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 1rem;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                display: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-links li {
+                padding: 0.75rem 1.5rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                font-size: 0.95rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
             .hero-content h1 {
                 font-size: 2.2rem;
+            }
+
+            .what-i-build,
+            .about-section,
+            .why-limited,
+            .checklist,
+            .final-cta {
+                padding: 3rem 1rem;
             }
 
             .section-title {
@@ -629,11 +698,16 @@
             .two-column {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                padding: 0;
             }
 
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.85rem;
+            .about-profile-image {
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+            }
+
+            .about-stories {
+                margin-top: 2rem;
             }
 
             .checklist-grid {
@@ -646,6 +720,42 @@
 
             .final-cta h2 {
                 font-size: 1.8rem;
+            }
+
+            .calendly-inline-widget {
+                margin: 0 auto !important;
+                max-width: 100% !important;
+            }
+
+            #book-calendar {
+                padding: 2rem 1rem !important;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #book-calendar {
+                padding: 1.5rem 0.5rem !important;
+            }
+
+            #book-calendar .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .calendly-inline-widget {
+                min-width: 100% !important;
+                width: 100% !important;
+                height: 600px !important;
+                overflow-x: hidden !important;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                padding: 0 1rem;
             }
         }
 
@@ -713,7 +823,12 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
             <div class="logo">
                 <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/user/avatar/35438301/542a4f6f.png" alt="Social Bulls Logo">
             </div>
-            <ul class="nav-links">
+            <button class="menu-button" id="menuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#services">What I Build</a></li>
                 <li><a href="#case-study">Results</a></li>
                 <li><a href="#about">About Me</a></li>
@@ -813,6 +928,7 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
         <div class="about-container">
             <div class="about-content">
                 <h2>Who's Behind This</h2>
+                <img src="sbs.jpeg" alt="Bart - Social Bulls Founder" class="about-profile-image">
 
                 <p>
                     My name is <strong>Bart</strong>, and I'm not your typical agency owner. I personally do everything—landing pages, ads, lead generation, discovery calls, optimization—all of it. Not because I haven't scaled yet, but because I know that's the only way to guarantee results.
@@ -842,7 +958,6 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
             </div>
 
             <div class="about-stories">
-                <img src="sbs.jpeg" alt="Bart - Social Bulls Founder" class="about-profile-image">
                 <div class="about-story">
                     <div class="story-title">Started with Cars</div>
                     <div class="story-content">
@@ -980,7 +1095,7 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
         <div class="container" style="max-width: 900px; margin: 0 auto;">
             <h2 class="section-title" style="margin-bottom: 2rem;">Schedule Your Free Strategy Call</h2>
             <!-- Calendly inline widget begin -->
-            <div class="calendly-inline-widget" data-url="https://calendly.com/socialbullagency/30min" style="min-width:320px;height:700px;"></div>
+            <div class="calendly-inline-widget" data-url="https://calendly.com/socialbullagency/30min" style="min-width:100%;height:700px;"></div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
             <!-- Calendly inline widget end -->
         </div>
@@ -1003,6 +1118,21 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        menuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1032,7 +1162,7 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
             });
         }, observerOptions);
 
-        document.querySelectorAll('.card, .checklist-item, .about-story, .stat, .testimonial').forEach(el => {
+        document.querySelectorAll('.card, .checklist-item, .about-story, .stat, .testimonial, .about-profile-image, .about-content h2, .about-content p, .about-highlight').forEach(el => {
             observer.observe(el);
         });
     </script>
