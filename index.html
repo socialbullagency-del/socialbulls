@@ -381,6 +381,18 @@
             margin-bottom: 0.5rem;
         }
 
+        .about-profile-image {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            display: block;
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
         .about-stories {
             display: flex;
             flex-direction: column;
@@ -715,7 +727,7 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
         <div class="hero-content">
             <h1>Stop Chasing <span class="highlight">Leads.</span><br>Start <span class="highlight">Closing</span> Them.</h1>
             <p>We generate qualified leads, close the appointments, and deliver everything done-for-you. You focus on delivery.</p>
-            <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary">Get Your Free Strategy Call</a>
+            <a href="#book-calendar" class="cta-primary">Get Your Free Strategy Call</a>
         </div>
 
         <div class="scroll-hint">
@@ -830,6 +842,7 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
             </div>
 
             <div class="about-stories">
+                <img src="sbs.jpeg" alt="Bart - Social Bulls Founder" class="about-profile-image">
                 <div class="about-story">
                     <div class="story-title">Started with Cars</div>
                     <div class="story-content">
@@ -958,7 +971,18 @@ src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
         <div class="container">
             <h2>⚠️ Only 4 Spots Remaining</h2>
             <p>The next contractor through gets guaranteed leads. The one after that goes on the waitlist.</p>
-            <a href="https://calendly.com/socialbullagency/30min" target="_blank" class="cta-primary">Book Your Free Strategy Call</a>
+            <a href="#book-calendar" class="cta-primary">Book Your Free Strategy Call</a>
+        </div>
+    </section>
+
+    <!-- Book Calendar Section -->
+    <section id="book-calendar" style="padding: 4rem 2rem; background: var(--off-white);">
+        <div class="container" style="max-width: 900px; margin: 0 auto;">
+            <h2 class="section-title" style="margin-bottom: 2rem;">Schedule Your Free Strategy Call</h2>
+            <!-- Calendly inline widget begin -->
+            <div class="calendly-inline-widget" data-url="https://calendly.com/socialbullagency/30min" style="min-width:320px;height:700px;"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <!-- Calendly inline widget end -->
         </div>
     </section>
 
