@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Social Bulls | Web Design for Contractors & Local Service Businesses | USA</title>
+  <meta name="description" content="Social Bulls builds high-converting websites and lead generation systems for contractors — roofers, siding, HVAC, and more. SEO, Google Ads, Facebook Ads. Serving the United States.">
+  <meta name="keywords" content="web design for contractors, contractor website design, lead generation for roofers, local SEO United States, Google Ads for contractors, Facebook ads contractors, nationwide contractor marketing">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Social Bulls">
+  <link rel="canonical" href="https://socialbulls.com/">
+  <meta property="og:title" content="Social Bulls | Web Design That Wins Clients">
+  <meta property="og:description" content="Premium websites and lead generation for contractors. Serving the United States.">
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Social Bulls",
+    "description": "Premium web design, local SEO, Google Ads, and Facebook Ads for contractors and local service businesses across the United States.",
+    "url": "https://socialbulls.com",
+    "email": "socialbullagency@gmail.com",
+    "address": { "@type": "PostalAddress", "addressCountry": "US" },
+    "areaServed": { "@type": "Country", "name": "United States" },
+    "founder": { "@type": "Person", "name": "Bart" },
+    "priceRange": "$$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog", "name": "Digital Marketing Services",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Design for Contractors"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Local SEO"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Google Ads Management"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Facebook Ads for Contractors"}}
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:    #000000;
+      --d1:       #080808;
+      --d2:       #0f0f0f;
+      --d3:       #161616;
+      --d4:       #1e1e1e;
+      --gold:     #D4AF37;
+      --gold-lt:  #e8c84a;
+      --gold-dk:  #a8891e;
+      --gold-glow:rgba(212,175,55,.16);
+      --white:    #ffffff;
+      --ow:       #F8F8F6;
+      --mu:       rgba(248,248,246,.5);
+      --mu2:      rgba(248,248,246,.22);
+      --f:        'Montserrat', system-ui, sans-serif;
+      --ease:     cubic-bezier(0.16,1,0.3,1);
+    }
+    html { overflow-x: hidden; scroll-behavior: auto; }
+    body {
+      font-family: var(--f);
+      background: var(--black);
+      color: var(--ow);
+      overflow-x: hidden;
+      cursor: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 2px; }
+
+    /* ── CURSOR ──────────────────────────────── */
+    #cd, #cr {
+      position: fixed; pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%); top: 0; left: 0; will-change: left,top;
+    }
+    #cd { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; transition: transform .15s ease; }
+    #cr { width: 36px; height: 36px; border: 1.5px solid rgba(212,175,55,.4); border-radius: 50%; z-index: 9998; transition: width .28s var(--ease), height .28s var(--ease), border-color .28s ease; }
+    body.ch #cd { transform: translate(-50%,-50%) scale(2.6); background: rgba(212,175,55,.65); }
+    body.ch #cr { width: 62px; height: 62px; border-color: rgba(212,175,55,.65); }
+
+    /* ── LOADER ──────────────────────────────── */
+    #ldr {
+      position: fixed; inset: 0; background: #000;
+      z-index: 8000; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 22px;
+    }
+    #lw { font-family: var(--f); font-size: 1.7rem; font-weight: 800; letter-spacing: -.04em; color: var(--white); opacity: 0; transform: translateY(10px); }
+    #lw span { color: var(--gold); }
+    #lbb { width: 180px; height: 2px; background: rgba(212,175,55,.12); border-radius: 2px; overflow: hidden; }
+    #lb  { height: 100%; width: 0; background: var(--gold); }
+    #lp  { font-size: .7rem; font-weight: 600; letter-spacing: .12em; color: var(--gold); opacity: .55; }
+
+    /* ── NAV ─────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 28px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: padding .4s ease, background .4s ease, border-color .4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.sc { padding: 16px 60px; background: rgba(0,0,0,.92); backdrop-filter: blur(20px); border-color: rgba(212,175,55,.09); }
+    .n-logo {
+      font-family: var(--f); font-size: 1.1rem; font-weight: 800;
+      letter-spacing: -.03em; color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .n-logo svg { width: 26px; height: 26px; }
+    .n-logo img { height: 34px; width: auto; display: block; }
+    .n-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .n-links a { font-size: .8125rem; font-weight: 500; letter-spacing: .03em; color: var(--mu); text-decoration: none; transition: color .2s; }
+    .n-links a:hover { color: var(--white); }
+    .n-cta {
+      font-family: var(--f); font-size: .8125rem; font-weight: 700; letter-spacing: .04em;
+      color: var(--black); background: var(--gold); padding: 11px 26px; border-radius: 3px;
+      text-decoration: none; cursor: none; position: relative; overflow: hidden;
+      transition: background .2s, box-shadow .2s;
+    }
+    .n-cta::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg,rgba(255,255,255,.18) 0%,transparent 55%); }
+    .n-cta:hover { background: var(--gold-lt); box-shadow: 0 0 40px rgba(212,175,55,.35); }
+
+    /* ── HERO ────────────────────────────────── */
+    #hero {
+      position: relative; min-height: 100svh;
+      display: flex; align-items: center;
+      overflow: hidden; padding: 130px 60px 100px;
+      background: var(--black);
+    }
+    #hcvs { display: none; }
+    .h-glow { display: none; }
+    .hg1 { display: none; }
+    .grain { display: none; }
+    .h-inner { position: relative; z-index: 3; max-width: 1100px; margin: 0 auto; width: 100%; }
+    .h-ey {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px; opacity: 0;
+    }
+    .h-pip { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pip 2s ease infinite; }
+    @keyframes pip { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.7)} }
+    h1.hh {
+      font-family: var(--f); font-weight: 600;
+      font-size: clamp(1.9rem,4.2vw,3.8rem);
+      line-height: .9; letter-spacing: -.03em; color: var(--white); margin-bottom: 36px;
+    }
+    h1.hh .ln { display: block; overflow: hidden; }
+    h1.hh .li { display: block; transform: translateY(110%); }
+    h1.hh .gold { color: var(--gold); }
+    h1.hh .strk { -webkit-text-stroke: 2px var(--white); color: transparent; }
+    .h-sub {
+      font-size: clamp(.9rem,1.4vw,1.1rem); font-weight: 300; letter-spacing: .01em;
+      color: var(--mu); max-width: 500px; line-height: 1.75;
+      margin-bottom: 52px; opacity: 0; transform: translateY(18px);
+    }
+    .h-acts { display: flex; align-items: center; gap: 22px; opacity: 0; transform: translateY(18px); }
+    .btn-g {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--f); font-size: .875rem; font-weight: 700; letter-spacing: .03em;
+      color: var(--black); background: var(--gold); padding: 15px 34px; border-radius: 3px;
+      text-decoration: none; cursor: none; position: relative; overflow: hidden;
+      transition: background .2s, box-shadow .25s;
+    }
+    .btn-g::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg,rgba(255,255,255,.18) 0%,transparent 55%); }
+    .btn-g:hover { background: var(--gold-lt); box-shadow: 0 0 50px rgba(212,175,55,.38); }
+    .btn-o {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .875rem; font-weight: 500; letter-spacing: .02em;
+      color: var(--ow); text-decoration: none; cursor: none;
+      border-bottom: 1px solid rgba(248,248,246,.28); padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-o:hover { color: var(--gold); border-color: var(--gold); }
+    .h-scroll {
+      position: absolute; bottom: 44px; left: 60px; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0;
+    }
+    .h-scroll span { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--mu2); writing-mode: vertical-lr; transform: rotate(180deg); }
+    .sbar { width: 1px; height: 52px; background: linear-gradient(to bottom,var(--gold),transparent); animation: sbar 2s ease infinite; }
+    @keyframes sbar { 0%{transform:scaleY(0);transform-origin:top;opacity:1} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom;opacity:0} }
+    .h-deco { display: none; }
+
+    /* ── SHOOTING STAR ───────────────────────── */
+    .shooting-star {
+      position: absolute;
+      top: 14%;
+      right: -10%;
+      width: 180px;
+      height: 1px;
+      background: linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,245,220,.25) 40%, rgba(255,245,220,.85) 85%, #fff 100%);
+      filter: drop-shadow(0 0 6px rgba(212,175,55,.55)) drop-shadow(0 0 14px rgba(212,175,55,.25));
+      transform: rotate(-18deg) translateX(0);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+      animation: shootingStar 9s ease-in-out infinite;
+    }
+    .shooting-star::before {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: -1.5px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 8px 2px rgba(255,245,220,.9), 0 0 18px 4px rgba(212,175,55,.55);
+    }
+    @keyframes shootingStar {
+      0%   { transform: rotate(-18deg) translateX(0);     opacity: 0; }
+      6%   { opacity: 0; }
+      10%  { opacity: 1; }
+      26%  { transform: rotate(-18deg) translateX(-140vw); opacity: 0; }
+      100% { transform: rotate(-18deg) translateX(-140vw); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shooting-star { display: none; }
+    }
+
+    /* ── TICKER ──────────────────────────────── */
+    #tkr { overflow: hidden; background: var(--gold); padding: 14px 0; }
+    .tt { display: flex; width: max-content; animation: tka 24s linear infinite; }
+    @keyframes tka { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .ti { display: flex; align-items: center; gap: 22px; padding: 0 28px; white-space: nowrap; }
+    .ti span { font-family: var(--f); font-size: .7rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--black); }
+    .ts { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,.25); flex-shrink: 0; }
+
+    /* ── STATS ───────────────────────────────── */
+    #stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: #000; }
+    .st {
+      padding: 56px 40px; text-align: center;
+      background: rgba(255,255,255,.02); border: 1px solid rgba(212,175,55,.06); position: relative; overflow: hidden;
+    }
+    .st::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0); transform-origin: left;
+      transition: transform .7s var(--ease);
+    }
+    .st.vis::after { transform: scaleX(1); }
+    .sn { display: block; font-family: var(--f); font-size: clamp(2.4rem,4.5vw,3.6rem); font-weight: 800; color: var(--gold); letter-spacing: -.04em; line-height: 1; margin-bottom: 10px; }
+    .sl { font-size: .8rem; font-weight: 400; color: var(--mu); line-height: 1.5; letter-spacing: .01em; }
+
+    /* ── COMMON ──────────────────────────────── */
+    .con { max-width: 1200px; margin: 0 auto; }
+    .stag {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .stag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .rv { opacity: 0; transform: translateY(44px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .rv.vis { opacity: 1; transform: translateY(0); }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
+
+    /* ── SERVICES ────────────────────────────── */
+    #services { padding: 130px 60px; background: var(--black); }
+    .sh { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-bottom: 72px; }
+    .sh h2 {
+      font-family: var(--f); font-size: clamp(1.9rem,4.2vw,3.4rem); font-weight: 600;
+      line-height: .9; letter-spacing: -.03em; color: var(--white); max-width: 500px; text-transform: uppercase;
+    }
+    .sh h2 em { font-style: normal; color: var(--gold); }
+    .sh p { font-size: .9rem; font-weight: 300; color: var(--mu); line-height: 1.8; max-width: 340px; }
+    .sg { display: flex; flex-direction: column; gap: 1px; }
+    .sc {
+      background: rgba(255,255,255,.02);
+      padding: 40px 52px;
+      border: 1px solid rgba(212,175,55,.05);
+      border-left: 2px solid transparent;
+      display: grid;
+      grid-template-columns: 72px 1fr 60px;
+      grid-template-rows: auto auto;
+      grid-template-areas: "num title arrow" "num desc  arrow";
+      column-gap: 36px;
+      row-gap: 10px;
+      align-items: center;
+      position: relative; overflow: hidden; cursor: none;
+      transition: border-color .4s, border-left-color .4s, background .4s, transform .45s var(--ease);
+    }
+    .sc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(212,175,55,.04) 0%,transparent 60%); opacity: 0; transition: opacity .4s; }
+    .sc:hover { border-color: rgba(212,175,55,.18); border-left-color: var(--gold); transform: translateX(6px); background: rgba(212,175,55,.02); }
+    .sc:hover::before { opacity: 1; }
+    .sn2 { grid-area: num; font-size: .65rem; font-weight: 700; letter-spacing: .15em; color: var(--gold); opacity: .5; margin-bottom: 0; text-align: center; }
+    .si { display: none; }
+    .st2 { grid-area: title; font-family: var(--f); font-size: clamp(1.1rem,1.6vw,1.5rem); font-weight: 700; color: var(--white); letter-spacing: -.03em; line-height: 1.1; margin-bottom: 0; align-self: end; }
+    .sd { grid-area: desc; font-size: .875rem; font-weight: 300; color: var(--mu); line-height: 1.8; max-width: none; align-self: start; }
+    .sa { grid-area: arrow; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(212,175,55,.25); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; justify-self: center; transition: background .3s, border-color .3s, transform .3s; }
+    .sc:hover .sa { background: var(--gold); color: var(--black); border-color: var(--gold); transform: rotate(45deg); }
+
+    /* ── PORTFOLIO (CAROUSEL) ────────────────── */
+    #portfolio { padding: 130px 0 130px; background: #000; overflow: hidden; }
+    .port-head { padding: 0 60px; margin-bottom: 48px; }
+    .port-head h2 {
+      font-family: var(--f); font-size: clamp(1.9rem,4.2vw,3.4rem); font-weight: 600;
+      line-height: .9; letter-spacing: -.03em; color: var(--white); text-transform: uppercase;
+    }
+    .port-head h2 em { font-style: normal; color: var(--gold); }
+    .port-head p { font-size: .9rem; font-weight: 300; color: var(--mu); margin-top: 14px; max-width: 520px; line-height: 1.75; }
+
+    /* Carousel container */
+    .port-carousel {
+      position: relative; padding: 0 60px;
+      max-width: 1400px; margin: 0 auto;
+    }
+
+    /* Top bar: counter + arrows */
+    .pc-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; padding: 0 2px;
+    }
+    .pc-counter {
+      font-family: var(--f); font-size: .8rem; font-weight: 700;
+      letter-spacing: .12em; color: var(--white);
+    }
+    .pc-counter #pcCurrent { color: var(--gold); font-size: 1.05rem; }
+    .pc-counter .pc-sep { margin: 0 10px; color: rgba(255,255,255,.25); }
+    .pc-counter #pcTotal { color: rgba(255,255,255,.5); }
+    .pc-arrows { display: flex; gap: 10px; }
+    .pc-arrow {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid rgba(212,175,55,.25); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); cursor: pointer;
+      transition: background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+    }
+    .pc-arrow svg { width: 20px; height: 20px; }
+    .pc-arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--black); transform: translateY(-2px); }
+    .pc-arrow:active { transform: translateY(0); }
+    .pc-arrow:disabled { opacity: .3; cursor: not-allowed; transform: none; background: transparent; color: var(--white); border-color: rgba(212,175,55,.12); }
+
+    /* Stage + track */
+    .pc-stage {
+      position: relative; overflow: hidden; border-radius: 14px;
+      border: 1px solid rgba(212,175,55,.08); background: #0a0a0a;
+      touch-action: pan-y;
+    }
+    .pc-track {
+      display: flex; width: 100%;
+      transition: transform .8s var(--ease);
+      will-change: transform;
+    }
+    .pc-slide {
+      flex: 0 0 100%; width: 100%;
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      min-height: 540px;
+    }
+
+    /* Visual side (left) */
+    .pc-visual {
+      position: relative; background: #111;
+      display: flex; flex-direction: column;
+      border-right: 1px solid rgba(212,175,55,.08);
+      overflow: hidden;
+    }
+    .pc-chrome {
+      background: #1a1a1a; padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .pc-dots { display: flex; gap: 6px; }
+    .pc-dots span { width: 11px; height: 11px; border-radius: 50%; }
+    .pc-dots span:nth-child(1) { background: #ff5f57; }
+    .pc-dots span:nth-child(2) { background: #febc2e; }
+    .pc-dots span:nth-child(3) { background: #28c840; }
+    .pc-url {
+      flex: 1; background: rgba(255,255,255,.06); border-radius: 5px;
+      padding: 6px 14px; font-size: .7rem; font-weight: 500; letter-spacing: .03em;
+      color: rgba(255,255,255,.55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pc-preview {
+      flex: 1; position: relative; overflow: hidden; background: #0a0a0a;
+    }
+    .pc-site {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover; object-position: top center;
+      position: absolute; top: 0; left: 0;
+      animation: pcSiteScroll 22s ease-in-out infinite alternate;
+    }
+    @keyframes pcSiteScroll { 0%{object-position:top center} 100%{object-position:bottom center} }
+    .pc-slide:not(.active) .pc-site { animation-play-state: paused; }
+
+    /* Visit overlay (hover to reveal button) */
+    .pc-visit-overlay {
+      position: absolute; inset: 0; z-index: 4;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%);
+      opacity: 0; transition: opacity .4s var(--ease);
+      text-decoration: none;
+    }
+    .pc-visual:hover .pc-visit-overlay { opacity: 1; }
+    .pc-visit-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 999px;
+      background: var(--gold); color: var(--black);
+      font-family: var(--f); font-size: .78rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      transform: translateY(10px); transition: transform .4s var(--ease);
+      box-shadow: 0 20px 40px rgba(212,175,55,.25);
+    }
+    .pc-visual:hover .pc-visit-btn { transform: translateY(0); }
+    .pc-visit-btn svg { width: 14px; height: 14px; }
+
+    /* Info side (right) */
+    .pc-info {
+      padding: 48px 48px 48px; display: flex; flex-direction: column;
+      background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+      justify-content: center;
+    }
+    .pc-cat {
+      font-size: .7rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    }
+    .pc-name {
+      font-family: var(--f); font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+      font-weight: 700; letter-spacing: -.03em; line-height: 1;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .pc-summary {
+      font-size: .92rem; font-weight: 300; color: var(--mu);
+      line-height: 1.75; margin-bottom: 32px;
+    }
+    .pc-work-label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      margin-bottom: 14px;
+    }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pc-tag {
+      display: inline-flex; align-items: center;
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid rgba(212,175,55,.25);
+      background: rgba(212,175,55,.04);
+      color: var(--white);
+      font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+      transition: background .25s var(--ease), border-color .25s var(--ease);
+    }
+    .pc-tag:hover { background: rgba(212,175,55,.12); border-color: rgba(212,175,55,.45); }
+
+    /* Footer: progress + dots */
+    .pc-footer {
+      display: flex; align-items: center; gap: 28px;
+      margin-top: 28px; padding: 0 2px;
+    }
+    .pc-progress {
+      flex: 1; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px;
+      position: relative; overflow: hidden;
+    }
+    .pc-progress-bar {
+      position: absolute; top: 0; left: 0; height: 100%;
+      width: 16.666%; background: var(--gold);
+      transition: width .8s var(--ease);
+    }
+    .pc-dots-row { display: flex; gap: 10px; }
+    .pc-dot {
+      width: 34px; height: 4px; border-radius: 2px;
+      border: none; padding: 0; cursor: pointer;
+      background: rgba(255,255,255,.15);
+      transition: background .3s var(--ease), width .3s var(--ease);
+    }
+    .pc-dot:hover { background: rgba(212,175,55,.5); }
+    .pc-dot.active { background: var(--gold); width: 44px; }
+
+    /* ── WHY ─────────────────────────────────── */
+    #why { padding: 130px 60px; background: var(--black); }
+    #why h2 { font-family: var(--f); font-size: clamp(1.9rem,4.2vw,3.4rem); font-weight: 600; line-height: .9; letter-spacing: -.03em; color: var(--white); text-align: center; margin-bottom: 14px; text-transform: uppercase; }
+    #why h2 em { font-style: normal; color: var(--gold); }
+    .w-sub { text-align: center; color: var(--mu); font-size: .9rem; font-weight: 300; max-width: 440px; margin: 0 auto 72px; line-height: 1.75; }
+    .w-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .wc {
+      background: rgba(255,255,255,.02); border: 1px solid rgba(212,175,55,.07); border-radius: 6px;
+      padding: 40px 32px; cursor: none;
+      transition: border-color .3s, transform .4s var(--ease);
+    }
+    .wc:hover { border-color: rgba(212,175,55,.28); transform: translateY(-6px); }
+    .wc-ico { width: 50px; height: 50px; border-radius: 8px; background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.18); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 24px; }
+    .wc h3 { font-family: var(--f); font-size: 1.05rem; font-weight: 700; letter-spacing: -.02em; color: var(--white); margin-bottom: 10px; }
+    .wc p { font-size: .8rem; font-weight: 300; color: var(--mu); line-height: 1.8; }
+
+    /* ── PROCESS ─────────────────────────────── */
+    #process { padding: 130px 60px; background: #000; }
+    #process h2 { font-family: var(--f); font-size: clamp(1.9rem,4.2vw,3.4rem); font-weight: 600; line-height: .9; letter-spacing: -.03em; color: var(--white); margin-bottom: 80px; max-width: 560px; text-transform: uppercase; }
+    #process h2 em { font-style: normal; color: var(--gold); }
+    .p-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
+    .p-row::before { content: ''; position: absolute; top: 28px; left: 28px; right: 28px; height: 1px; background: linear-gradient(to right,var(--gold),rgba(212,175,55,.15)); }
+    .p-step { padding: 0 28px; position: relative; z-index: 1; }
+    .p-num { width: 56px; height: 56px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+    .p-num span { font-family: var(--f); font-size: 1rem; font-weight: 800; color: var(--black); }
+    .p-title { font-family: var(--f); font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; color: var(--white); margin-bottom: 12px; }
+    .p-desc { font-size: .8125rem; font-weight: 300; color: var(--mu); line-height: 1.8; }
+
+    /* ── RESULTS STRIP ───────────────────────── */
+    #hstrip { padding: 80px 0; background: #000; overflow: hidden; }
+    .hs-head { padding: 0 60px; margin-bottom: 40px; }
+    .hs-track { display: flex; gap: 18px; padding: 0 60px; animation: hsa 32s linear infinite; width: max-content; }
+    @keyframes hsa { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .hs-track:hover { animation-play-state: paused; }
+    .hc { background: rgba(255,255,255,.02); border: 1px solid rgba(212,175,55,.08); border-radius: 8px; padding: 36px 44px; min-width: 340px; flex-shrink: 0; transition: border-color .3s; }
+    .hc:hover { border-color: rgba(212,175,55,.25); }
+    .hc-kpi { font-family: var(--f); font-size: 2.6rem; font-weight: 800; letter-spacing: -.04em; color: var(--gold); margin-bottom: 4px; }
+    .hc-lbl { font-size: .75rem; font-weight: 300; color: var(--mu); margin-bottom: 22px; }
+    .hc-name { font-family: var(--f); font-size: .9rem; font-weight: 700; letter-spacing: -.02em; color: var(--white); }
+    .hc-biz { font-size: .75rem; color: var(--mu); margin-top: 3px; }
+
+    /* ── TESTIMONIALS ────────────────────────── */
+    #testimonials { padding: 130px 60px; background: var(--black); }
+    #testimonials h2 { font-family: var(--f); font-size: clamp(1.9rem,4.2vw,3.4rem); font-weight: 600; line-height: .9; letter-spacing: -.03em; color: var(--white); margin-bottom: 64px; text-transform: uppercase; }
+    #testimonials h2 em { font-style: normal; color: var(--gold); }
+    .tg { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .tc { background: rgba(255,255,255,.02); border: 1px solid rgba(212,175,55,.07); border-radius: 8px; padding: 40px 36px; transition: border-color .3s, transform .4s var(--ease); }
+    .tc:hover { border-color: rgba(212,175,55,.25); transform: translateY(-5px); }
+    .t-stars { display: flex; gap: 3px; margin-bottom: 18px; }
+    .star { color: var(--gold); font-size: .875rem; }
+    .t-q { font-size: .875rem; font-weight: 300; color: var(--ow); line-height: 1.8; font-style: italic; margin-bottom: 28px; }
+    .t-auth { display: flex; align-items: center; gap: 12px; }
+    .t-av { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--f); font-weight: 800; font-size: .8rem; color: var(--black); flex-shrink: 0; }
+    .t-name { font-weight: 600; font-size: .875rem; color: var(--white); }
+    .t-role { font-size: .75rem; font-weight: 300; color: var(--mu); margin-top: 2px; }
+
+    /* ── CTA ─────────────────────────────────── */
+    #cta { padding: 140px 60px; background: #000; text-align: center; position: relative; overflow: hidden; }
+    #cta::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 500px; background: radial-gradient(ellipse,rgba(212,175,55,.08) 0%,transparent 65%); }
+    #cta::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(212,175,55,.06); animation: rp 4s ease infinite; }
+    @keyframes rp { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4} 50%{transform:translate(-50%,-50%) scale(1.06);opacity:.1} }
+    #cta h2 { font-family: var(--f); font-size: clamp(2rem,4.8vw,4.4rem); font-weight: 600; line-height: .9; letter-spacing: -.03em; color: var(--white); margin-bottom: 22px; position: relative; z-index: 1; text-transform: uppercase; }
+    #cta h2 em { font-style: normal; color: var(--gold); }
+    #cta p { font-size: 1rem; font-weight: 300; color: var(--mu); line-height: 1.7; max-width: 440px; margin: 0 auto 52px; position: relative; z-index: 1; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 22px; position: relative; z-index: 1; }
+
+
+    /* ── CTA FORM ────────────────────────────── */
+    .cta-form { max-width: 780px; margin: 0 auto; text-align: left; position: relative; z-index: 1; }
+    .cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cta-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .cta-field label { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+    .cta-field input,
+    .cta-field textarea {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(212,175,55,.18);
+      border-radius: 4px; padding: 14px 18px; font-family: inherit; font-size: .875rem;
+      font-weight: 300; color: var(--white); outline: none; transition: border-color .25s, box-shadow .25s;
+      width: 100%; box-sizing: border-box;
+    }
+    .cta-field input::placeholder, .cta-field textarea::placeholder { color: rgba(248,248,246,.22); }
+    .cta-field input:focus, .cta-field textarea:focus {
+      border-color: rgba(212,175,55,.55); box-shadow: 0 0 0 3px rgba(212,175,55,.06);
+    }
+    .cta-field textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+    .cta-checks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .cta-chk { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .cta-chk input[type="checkbox"] { display: none; }
+    .cta-chk span {
+      padding: 7px 16px; border-radius: 3px; font-size: .72rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+      border: 1px solid rgba(212,175,55,.22); color: rgba(248,248,246,.55);
+      transition: all .2s ease; user-select: none;
+    }
+    .cta-chk input:checked + span { background: var(--gold); color: var(--black); border-color: var(--gold); }
+    .cta-chk span:hover { border-color: rgba(212,175,55,.5); color: var(--white); }
+    .cta-submit { display: flex; align-items: center; gap: 22px; margin-top: 28px; flex-wrap: wrap; }
+    .cta-note { font-size: .75rem; font-weight: 300; color: var(--mu2); }
+    .cta-success { text-align: center; padding: 48px 24px; }
+    .cta-success-icon { font-size: 3rem; color: var(--gold); margin-bottom: 16px; }
+    .cta-success h3 { font-family: var(--f); font-size: 1.6rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .cta-success p { color: var(--mu); font-weight: 300; }
+    @media(max-width:640px) { .cta-row { grid-template-columns: 1fr; } .cta-submit { flex-direction: column; align-items: flex-start; } }
+
+    /* ── FOOTER ──────────────────────────────── */
+    #footer { background: #000; padding: 72px 60px 40px; border-top: 1px solid rgba(212,175,55,.08); }
+    .ft { display: flex; align-items: flex-start; justify-content: space-between; gap: 80px; margin-bottom: 56px; }
+    .fb { max-width: 320px; }
+    .flog { font-family: var(--f); font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em; color: var(--white); display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .flog span { color: var(--gold); }
+    .flog img { height: 32px; width: auto; display: block; }
+    .ftag { font-size: .8125rem; font-weight: 300; color: var(--mu); line-height: 1.75; }
+    .fc-wrap { display: flex; gap: 80px; }
+    .fc h4 { font-family: var(--f); font-size: .6rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .fc ul a { font-size: .8125rem; font-weight: 400; color: var(--mu); text-decoration: none; transition: color .2s; }
+    .fc ul a:hover { color: var(--white); }
+    .fb2 { border-top: 1px solid rgba(248,248,246,.05); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
+    .fc2 { font-size: .75rem; font-weight: 300; color: var(--mu2); }
+    .fb3 { font-size: .7rem; font-weight: 700; color: var(--gold); opacity: .55; letter-spacing: .04em; }
+
+    /* ── MOBILE ──────────────────────────────── */
+    @media(max-width:1100px) { .w-grid{grid-template-columns:repeat(2,1fr)} }
+    @media(max-width:900px) {
+      #nav{padding:20px 28px} #nav.sc{padding:14px 28px}
+      .n-links{display:none}
+      #hero{padding:110px 28px 80px}
+      .h-deco{display:none} .h-scroll{left:28px}
+      #stats{grid-template-columns:1fr 1fr}
+      #services,#why,#process,#testimonials,#cta,#footer{padding:80px 28px}
+      .sh{flex-direction:column}
+      .sg{flex-direction:column}
+      #portfolio{padding:80px 0}
+      .port-head,.hs-head{padding:0 28px}
+      .port-carousel{padding:0 20px;margin:0 auto}
+      .pc-topbar{padding:14px 18px;margin-bottom:18px}
+      .pc-arrow{width:42px;height:42px}
+      .pc-slide{grid-template-columns:1fr;min-height:auto}
+      .pc-visual{min-height:260px;border-right:none;border-bottom:1px solid rgba(212,175,55,.12)}
+      .pc-preview{padding:16px}
+      .pc-info{padding:32px 26px 36px}
+      .pc-name{font-size:1.55rem}
+      .pc-summary{font-size:.92rem}
+      .pc-footer{padding:16px 18px;flex-direction:column;gap:14px;align-items:stretch}
+      .pc-dots-row{justify-content:center}
+      .pc-visit-btn{font-size:.68rem;padding:10px 16px}
+      .w-grid{grid-template-columns:1fr}
+      .p-row{grid-template-columns:1fr;gap:40px}
+      .p-row::before{display:none}
+      .tg{grid-template-columns:1fr}
+      .ft{flex-direction:column;gap:40px}
+      .fc-wrap{flex-direction:column;gap:32px}
+      .h-acts{flex-direction:column;align-items:flex-start}
+      #cd,#cr{display:none} body{cursor:auto}
+      .btn-g,.btn-o,.n-cta,.n-book{cursor:pointer}
+    }
+
+    /* ═══════════════════════════════════════════
+       VISUAL UPGRADES v2
+    ═══════════════════════════════════════════ */
+
+    /* SCROLL PROGRESS BAR */
+    #spb { position:fixed;top:0;left:0;z-index:9997;height:2px;width:0%;pointer-events:none;
+      background:linear-gradient(90deg,#a8891e,#D4AF37,#e8c84a);
+      box-shadow:0 0 16px rgba(212,175,55,.8),0 0 4px rgba(212,175,55,.5); transition:width .06s linear; }
+
+    /* SPOTLIGHT LAYER — disabled for pure black hero */
+    #spotlight { display:none; }
+
+    /* HUD SCAN LINE — disabled */
+    #scan { display:none; }
+
+    /* SECTION DOTS */
+    #sect-ind { position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:450;
+      display:flex;flex-direction:column;gap:11px;pointer-events:none; }
+    .si-dot { width:5px;height:5px;border-radius:50%;
+      background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.12);
+      transition:background .35s,transform .35s,box-shadow .35s; }
+    .si-dot.act { background:var(--gold);transform:scale(1.5);
+      box-shadow:0 0 10px rgba(212,175,55,.6); }
+    @media(max-width:900px){#sect-ind,#scan{display:none}}
+
+    /* ANIMATED GRAIN */
+    @keyframes grainShift {
+      0%,100%{background-position:0 0}   10%{background-position:-3% 4%}
+      20%{background-position:4% -3%}    30%{background-position:-2% -4%}
+      40%{background-position:3% 2%}     50%{background-position:-4% 3%}
+      60%{background-position:2% -2%}    70%{background-position:-3% -3%}
+      80%{background-position:4% 4%}     90%{background-position:-1% 3%} }
+    .grain { animation:grainShift .22s steps(1) infinite; }
+
+    /* HERO GLITCH */
+    @keyframes glitch-c1 {
+      0%,91%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}
+      92%{clip-path:inset(18% 0 58% 0);transform:translate(-5px,0);opacity:.75}
+      94%{clip-path:inset(63% 0 8%  0);transform:translate(5px,0);opacity:.5}
+      96%{clip-path:inset(38% 0 32% 0);transform:translate(-2px,2px);opacity:.85}
+      98%{clip-path:inset(0 0 100% 0);transform:translate(0);opacity:0} }
+    @keyframes glitch-c2 {
+      0%,93%,100%{clip-path:inset(0 0 100% 0);transform:translate(0)}
+      94%{clip-path:inset(8% 0 72% 0);transform:translate(5px,-2px);color:#ff3366;opacity:.45}
+      96%{clip-path:inset(72% 0 4% 0);transform:translate(-5px,2px);color:#00ffcc;opacity:.35}
+      98%{clip-path:inset(0 0 100% 0);opacity:0} }
+    .hh-wrap { position:relative; }
+    .hh-g1,.hh-g2 { position:absolute;top:0;left:0;width:100%;pointer-events:none;
+      font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit; }
+    .hh-g1 { animation:glitch-c1 11s linear infinite;color:var(--gold); }
+    .hh-g2 { animation:glitch-c2 11s linear infinite .2s; }
+
+    /* FLOATING GEOMETRY */
+    .geo { position:absolute;pointer-events:none;z-index:1;border-radius:50%;
+      border:1px solid rgba(212,175,55,.06); }
+    @keyframes floatGeo {
+      0%,100%{transform:translate(0,0) rotate(0deg)}
+      33%{transform:translate(var(--fx,20px),var(--fy,-25px)) rotate(55deg)}
+      66%{transform:translate(calc(var(--fx,20px)*-.6),var(--fy,-25px)) rotate(110deg)} }
+
+    /* 3D TILT SHEEN */
+    .tilt-sheen { position:absolute;inset:0;z-index:10;pointer-events:none;
+      background:radial-gradient(ellipse at var(--sx,50%) var(--sy,50%),rgba(255,255,255,.09) 0%,transparent 55%);
+      opacity:0;transition:opacity .3s;border-radius:inherit; }
+    .sc:hover .tilt-sheen,.wc:hover .tilt-sheen,.tc:hover .tilt-sheen { opacity:1; }
+
+    /* ENHANCED HOVER GLOW */
+    .sc { transform-style:preserve-3d;will-change:transform; }
+    .wc { transform-style:preserve-3d;will-change:transform; }
+    .tc { transform-style:preserve-3d;will-change:transform; }
+    .sc:hover { border-color:rgba(212,175,55,.4)!important;
+      box-shadow:0 0 50px rgba(212,175,55,.1),0 24px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(212,175,55,.15)!important; }
+    .wc:hover { border-color:rgba(212,175,55,.4)!important;
+      box-shadow:0 0 50px rgba(212,175,55,.1),0 20px 50px rgba(0,0,0,.5)!important; }
+    .tc:hover { border-color:rgba(212,175,55,.4)!important;
+      box-shadow:0 0 50px rgba(212,175,55,.1),0 20px 50px rgba(0,0,0,.4)!important; }
+
+    /* SCRAMBLE STAG */
+    .stag.sc-active { font-family:'Courier New',monospace; }
+
+    /* PROCESS – VERTICAL GRID (4-column) */
+    #process { overflow:visible; }
+    #proc-rail { display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;width:auto; }
+    #proc-rail::before { content:'';position:absolute;top:28px;left:28px;right:28px;height:1px;
+      background:linear-gradient(to right,var(--gold),rgba(212,175,55,.15));display:block; }
+    .p-step { width:auto;padding:0 28px;flex-shrink:unset;position:relative;z-index:1; }
+    .p-row { display:block;position:relative; }
+    .p-row::before { display:none; }
+    #proc-rail .p-step { opacity:1 !important; transform:none !important; }
+    /* ── PROCESS VERTICAL TIMELINE ─────────────────────── */
+    #proc-timeline { display: flex; flex-direction: column; max-width: 660px; margin: 56px auto 0; }
+    .pt-step { display: flex; gap: 28px; align-items: flex-start;
+      opacity: 0; transform: translateX(-24px); transition: opacity .65s ease, transform .65s ease; }
+    .pt-step.tl-in { opacity: 1; transform: none; }
+    .pt-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .pt-circle { width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f); font-size: .72rem; font-weight: 800;
+      letter-spacing: .1em; color: var(--gold); flex-shrink: 0; }
+    .pt-line { width: 1px; flex: 1; min-height: 52px;
+      background: linear-gradient(to bottom, rgba(212,175,55,.3), rgba(212,175,55,.04));
+      margin: 6px 0; }
+    .pt-step:last-child .pt-line { display: none; }
+    .pt-body { padding-top: 12px; padding-bottom: 36px; }
+    .pt-body h3.p-title { font-family: var(--f); font-size: 1rem; font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+    .pt-body .p-desc { font-size: .825rem; font-weight: 300; color: var(--mu); line-height: 1.8; }
+    @media(max-width:600px){ #proc-timeline { margin: 40px 0 0; } .pt-step { gap: 20px; } }
+
+
+    /* SKEW ENTRANCE */
+    .rv-skew { opacity:0;transform:skewY(4deg) translateY(50px);
+      transition:opacity .9s var(--ease),transform .9s var(--ease); }
+    .rv-skew.vis { opacity:1;transform:skewY(0) translateY(0); }
+
+    /* VELOCITY BLUR */
+    body.vblur *:not(#spb):not(#spotlight):not(#scan):not(#sect-ind):not(#ldr):not(#cd):not(#cr) {
+      filter:blur(.5px); transition:filter .12s ease; }
+    body *:not(#spb):not(#spotlight):not(#scan):not(#sect-ind):not(#ldr):not(#cd):not(#cr) {
+      transition:filter .4s ease; }
+
+    /* CTA EXTRA RINGS */
+    #cta-r1,#cta-r2 {
+      position:absolute;border-radius:50%;border:1px solid rgba(212,175,55,.06);
+      top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none; }
+    #cta-r1 { width:800px;height:600px;animation:rp 3.5s ease infinite .3s; }
+    #cta-r2 { width:1000px;height:750px;animation:rp 4s ease infinite .8s; }
+
+    /* RESULT CARD gold bottom */
+    .hc { border-bottom:2px solid transparent;transition:border-color .3s,border-color .3s; }
+    .hc:hover { border-color:var(--gold)!important;border-bottom-color:var(--gold)!important; }
+
+    /* SECTION TAG CODE FONT */
+    .stag { font-variant-numeric:tabular-nums; }
+
+  /* ═══════════════════════════════════════
+     VISUAL UPGRADES v3
+  ═══════════════════════════════════════ */
+
+  /* HERO ASCII BULL */
+  #bull-wrap {
+    position:absolute; right:5%; top:50%;
+    transform:translateY(-50%);
+    transform-style:preserve-3d; z-index:3;
+    pointer-events:none; will-change:transform;
+  }
+  #bull-ascii { display:block; opacity:0; transition:opacity 1.6s ease 1s;
+    filter:drop-shadow(0 0 40px rgba(212,175,55,.18)) drop-shadow(0 0 100px rgba(212,175,55,.08)); }
+  #bull-ascii.vis { opacity:1; }
+  @media(max-width:900px){#bull-wrap{display:none}}
+
+  /* PORTFOLIO PLACEHOLDER */
+  .pi-placeholder { position:absolute;inset:0;display:flex;align-items:center;justify-content:center; }
+  .pi-ph-inner { text-align:center; }
+  .pi-ph-ico { font-size:2.2rem;color:rgba(212,175,55,.3);display:block;margin-bottom:12px;line-height:1; }
+  .pi-ph-txt { font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.22); }
+
+  /* PORTFOLIO COLLAPSE HINTS */
+  .pi-hint { position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); display:flex; flex-direction:column;
+    align-items:center; gap:8px; z-index:5;
+    transition:opacity .3s ease, transform .3s ease; pointer-events:none; }
+  .pi:hover .pi-hint, .pi.open .pi-hint { opacity:0; transform:translate(-50%,-60%) scale(0.75); }
+  .pi-ring { width:32px; height:32px; border:1.5px solid rgba(212,175,55,0.6);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:var(--gold); font-size:.85rem;
+    animation:hintPulse 2.4s ease-in-out infinite; }
+  @keyframes hintPulse {
+    0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,0);transform:scale(1);}
+    50%{box-shadow:0 0 0 9px rgba(212,175,55,0.1);transform:scale(1.07);} }
+  .pi-hint-lbl { font-size:.52rem; font-weight:800; letter-spacing:.12em;
+    color:rgba(212,175,55,0.65); text-transform:uppercase; white-space:nowrap; }
+  .pi:not(.open):not(:hover) .pi-content { opacity:0.05!important; transition:none!important; }
+
+  /* FOOTER ASCII */
+  #footer { position:relative; overflow:hidden; }
+  #foot-ascii { position:absolute; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+  #foot-star { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .ft, .fb2 { position:relative; z-index:2; }
+
+  /* SECTION DEPTH SHADOW — top edge of every section below the first */
+  #services,#portfolio,#why,#hstrip,#testimonials,#cta,#footer { position:relative; }
+  #services::before,#portfolio::before,#why::before,#hstrip::before,
+  #testimonials::before,#cta::before,#footer::before {
+    content:''; position:absolute; top:0; left:0; right:0;
+    height:72px; background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,transparent 100%);
+    pointer-events:none; z-index:10; }
+
+  </style>
+  <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '847023648405650');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=847023648405650&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1691288142238677');
+fbq('track', 'PageView');
+fbq('init', '1691288142238677', {
+  em: 'email@email.com',   // Values will be hashed automatically by the pixel using SHA-256
+  ph: '1234567890',
+  ...
+});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9QVSK1X6Y9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9QVSK1X6Y9');
+</script>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div id="spb"></div>
+<!-- SPOTLIGHT -->
+<div id="spotlight"></div>
+<!-- HUD SCAN LINE -->
+<div id="scan"></div>
+<!-- SECTION INDICATOR -->
+<div id="sect-ind">
+  <div class="si-dot" data-sec="hero"></div>
+  <div class="si-dot" data-sec="services"></div>
+  <div class="si-dot" data-sec="portfolio"></div>
+  <div class="si-dot" data-sec="why"></div>
+  <div class="si-dot" data-sec="process"></div>
+  <div class="si-dot" data-sec="hstrip"></div>
+  <div class="si-dot" data-sec="testimonials"></div>
+  <div class="si-dot" data-sec="cta"></div>
+</div>
+<div id="cd"></div>
+<div id="cr"></div>
+
+<!-- LOADER -->
+<div id="ldr">
+  <div id="lw">Social <span>Bulls</span></div>
+  <div id="lbb"><div id="lb"></div></div>
+  <div id="lp">0%</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="n-logo" aria-label="Social Bulls">
+    <img src="logo.png" alt="" aria-hidden="true">
+    Social Bulls
+  </a>
+  <ul class="n-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Results</a></li>
+  </ul>
+  <a href="#cta" class="n-cta magnetic">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-label="Hero">
+  <canvas id="hcvs"></canvas>
+  <!-- FLOATING GEO -->
+
+
+  <!-- ASCII BULL SILHOUETTE -->
+  <div id="bull-wrap">
+    <canvas id="bull-ascii" width="420" height="420"></canvas>
+  </div>
+
+  <div class="h-glow hg1"></div>
+  <div class="grain"></div>
+  <span class="shooting-star" aria-hidden="true"></span>
+  <div class="h-inner">
+    <div class="h-ey">
+      <div class="h-pip"></div>
+      Web Design for Contractors &nbsp;·&nbsp; United States
+    </div>
+    <div class="hh-wrap"><div class="hh-g1" aria-hidden="true">DOMINATE YOUR<br>LOCAL MARKET<br>ONLINE.</div><div class="hh-g2" aria-hidden="true">DOMINATE YOUR<br>LOCAL MARKET<br>ONLINE.</div>
+    <h1 class="hh" id="hh">
+      <span class="ln"><span class="li">DOMINATE YOUR</span></span>
+      <span class="ln"><span class="li"><span class="gold">LOCAL</span> MARKET</span></span>
+      <span class="ln"><span class="li"><span class="strk">ONLINE.</span></span></span>
+    </h1></div>
+    <p class="h-sub" id="hsub">
+      Social Bulls engineers premium websites and full lead generation systems for contractors and local service businesses. We don't just design — we build growth engines.
+    </p>
+    <div class="h-acts" id="hacts">
+      <a href="#cta" class="btn-g magnetic">Book a Free Call <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></a>
+      <a href="#portfolio" class="btn-o">See Our Work</a>
+    </div>
+  </div>
+  <div class="h-scroll" id="hscroll" aria-hidden="true">
+    <div class="sbar"></div>
+    <span>Scroll</span>
+  </div>
+  <div class="h-deco" id="hdeco" aria-hidden="true">WEB</div>
+</section>
+
+<!-- TICKER -->
+<div id="tkr" aria-hidden="true">
+  <div class="tt">
+    <div class="ti"><span>Web Design</span><div class="ts"></div></div>
+    <div class="ti"><span>Local SEO</span><div class="ts"></div></div>
+    <div class="ti"><span>Google Ads</span><div class="ts"></div></div>
+    <div class="ti"><span>Facebook Ads</span><div class="ts"></div></div>
+    <div class="ti"><span>Lead Generation</span><div class="ts"></div></div>
+    <div class="ti"><span>Contractor Marketing</span><div class="ts"></div></div>
+    <div class="ti"><span>Conversion Design</span><div class="ts"></div></div>
+    <div class="ti"><span>Results-Driven</span><div class="ts"></div></div>
+    <div class="ti"><span>Web Design</span><div class="ts"></div></div>
+    <div class="ti"><span>Local SEO</span><div class="ts"></div></div>
+    <div class="ti"><span>Google Ads</span><div class="ts"></div></div>
+    <div class="ti"><span>Facebook Ads</span><div class="ts"></div></div>
+    <div class="ti"><span>Lead Generation</span><div class="ts"></div></div>
+    <div class="ti"><span>Contractor Marketing</span><div class="ts"></div></div>
+    <div class="ti"><span>Conversion Design</span><div class="ts"></div></div>
+    <div class="ti"><span>Results-Driven</span><div class="ts"></div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section id="stats" aria-label="Agency Statistics">
+  <div class="st"><span class="sn" data-target="47">0</span><span class="sl">Websites Built for Contractors</span></div>
+  <div class="st"><span class="sn" data-target="320" data-sfx="%">0</span><span class="sl">Avg. Traffic Increase After Launch</span></div>
+  <div class="st"><span class="sn" data-target="100" data-sfx="%">0</span><span class="sl">Done-For-You — Bart Handles Everything</span></div>
+  <div class="st"><span class="sn" data-target="3" data-sfx="×">0</span><span class="sl">Average ROI on Ad Spend</span></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" aria-labelledby="svc-h">
+  <div class="con">
+    <div class="sh rv">
+      <div>
+        <div class="stag" data-scramble="WHAT WE BUILD">What We Build</div>
+        <h2 id="svc-h">Digital <em>weapons</em><br>for local businesses.</h2>
+      </div>
+      <p>Every service we offer has one goal — put more qualified leads in your pipeline and more revenue in your pocket. No retainers for nothing.</p>
+    </div>
+    <div class="sg">
+      <div class="sc"><div class="tilt-sheen"></div>
+        <div class="sn2">01</div>
+        <h3 class="st2">Web Design That<br>Converts</h3>
+        <p class="sd">No templates. No cookie-cutter WordPress sites. We build custom, blazing-fast websites engineered for contractors — designed to turn every visitor into a phone call.</p>
+        <div class="sa" aria-hidden="true">→</div>
+      </div>
+      <div class="sc d1"><div class="tilt-sheen"></div>
+        <div class="sn2">02</div>
+        <h3 class="st2">Local SEO That<br>Owns Google</h3>
+        <p class="sd">We rank your business at the top of Google Maps and Page 1 organic for the exact keywords your customers are searching right now. Map Pack dominance, built for your market.</p>
+        <div class="sa" aria-hidden="true">→</div>
+      </div>
+      <div class="sc d2"><div class="tilt-sheen"></div>
+        <div class="sn2">03</div>
+        <h3 class="st2">Google Ads That<br>Print Leads</h3>
+        <p class="sd">Precision-targeted Google Ads campaigns built for service businesses. We capture high-intent buyers at the exact moment they search — and convert them into paying customers.</p>
+        <div class="sa" aria-hidden="true">→</div>
+      </div>
+      <div class="sc d3"><div class="tilt-sheen"></div>
+        <div class="sn2">04</div>
+        <h3 class="st2">Facebook Ads That<br>Scale Revenue</h3>
+        <p class="sd">Proven Facebook ad systems for contractors. Consistent, scalable inbound lead flow — so you stop chasing jobs and start choosing your best clients.</p>
+        <div class="sa" aria-hidden="true">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" aria-labelledby="port-h">
+  <div class="port-head rv">
+    <div class="stag" data-scramble="OUR WORK">Our Work</div>
+    <h2 id="port-h">Websites that <em>work</em><br>as hard as you do.</h2>
+    <p>Every website we build is custom-engineered for conversion. Use the arrows, dots, or swipe to explore each project.</p>
+  </div>
+
+  <div class="port-carousel" id="portCarousel" role="region" aria-roledescription="carousel" aria-label="Portfolio projects">
+
+    <div class="pc-topbar">
+      <div class="pc-counter"><span id="pcCurrent">01</span><span class="pc-sep">/</span><span id="pcTotal">06</span></div>
+      <div class="pc-arrows">
+        <button class="pc-arrow" id="pcPrev" aria-label="Previous project" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="pc-arrow" id="pcNext" aria-label="Next project" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pc-stage" id="pcStage">
+      <div class="pc-track" id="pcTrack">
+
+        <!-- Slide 1: Elman's Contractors -->
+        <article class="pc-slide" data-idx="0" aria-roledescription="slide" aria-label="Project 1 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">elmanscontractors.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://www.elmanscontractors.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Elman's Contractors website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://www.elmanscontractors.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Elman's Contractors">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">General Contractor · Elmont, NY</div>
+            <h3 class="pc-name">Elman's Contractors</h3>
+            <p class="pc-summary">A full-service contracting brand needed a website that communicates trust, craftsmanship, and scale. We built a conversion-first site with service-specific pages, clear trust markers, and lead forms engineered to route qualified requests straight to the owner.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Custom Website</span>
+                <span class="pc-tag">Local SEO</span>
+                <span class="pc-tag">Service Pages</span>
+                <span class="pc-tag">Lead Forms</span>
+                <span class="pc-tag">Mobile-First UX</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 2: Go 2 Steam -->
+        <article class="pc-slide" data-idx="1" aria-roledescription="slide" aria-label="Project 2 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">go2-steam.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://go2-steam.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Go 2 Steam website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://go2-steam.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Go 2 Steam">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">Steam Cleaning · NY</div>
+            <h3 class="pc-name">Go 2 Steam</h3>
+            <p class="pc-summary">A growing steam cleaning company needed a website that turns curious homeowners into booked jobs. We built a fast, mobile-first site with transparent pricing, before/after imagery, and a friction-free booking flow that captures leads in under 30 seconds.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Custom Website</span>
+                <span class="pc-tag">Booking UX</span>
+                <span class="pc-tag">Service Area Pages</span>
+                <span class="pc-tag">On-Page SEO</span>
+                <span class="pc-tag">Mobile Optimization</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 3: Infinity Beauty Lab -->
+        <article class="pc-slide" data-idx="2" aria-roledescription="slide" aria-label="Project 3 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">infinitybeautylab.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://www.infinitybeautylab.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Infinity Beauty Lab website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://www.infinitybeautylab.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Infinity Beauty Lab">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">Beauty &amp; Aesthetics</div>
+            <h3 class="pc-name">Infinity Beauty Lab</h3>
+            <p class="pc-summary">A luxury aesthetics studio needed a digital presence that matches the quality of their in-room experience. We designed a premium, editorial-style website with integrated booking, a clear service showcase, and photography-led design that positions them at the top of their market.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Brand Website</span>
+                <span class="pc-tag">Booking Integration</span>
+                <span class="pc-tag">Service Showcase</span>
+                <span class="pc-tag">Premium UX</span>
+                <span class="pc-tag">Editorial Design</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 4: Caribbean Mobile Detailing -->
+        <article class="pc-slide" data-idx="3" aria-roledescription="slide" aria-label="Project 4 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">caribbeanmobiledetailingllc.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://www.caribbeanmobiledetailingllc.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Caribbean Mobile Detailing website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://www.caribbeanmobiledetailingllc.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Caribbean Mobile Detailing">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">Mobile Auto Detailing</div>
+            <h3 class="pc-name">Caribbean Mobile Detailing</h3>
+            <p class="pc-summary">A mobile detailer needed a website that sells quality, convenience, and trust at a glance. We built a clean, pricing-forward site with tiered packages, galleries, and a booking funnel optimized for the 80%+ of their traffic that arrives from a phone.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Custom Website</span>
+                <span class="pc-tag">Pricing Tiers</span>
+                <span class="pc-tag">Lead Generation</span>
+                <span class="pc-tag">Mobile UX</span>
+                <span class="pc-tag">Gallery Design</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 5: PG Lux Auto Boutique -->
+        <article class="pc-slide" data-idx="4" aria-roledescription="slide" aria-label="Project 5 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">pgluxautoboutique.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://pgluxautoboutique.com/&screenshot=true&meta=false&embed=screenshot.url" alt="PG Lux Auto Boutique website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://pgluxautoboutique.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit PG Lux Auto Boutique">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">Luxury Auto</div>
+            <h3 class="pc-name">PG Lux Auto Boutique</h3>
+            <p class="pc-summary">A luxury auto boutique needed a website that feels as premium as the vehicles it sells. We delivered a dark, editorial design with a hero-driven inventory layout, strong brand identity, and an inquiry funnel built to qualify serious buyers quickly.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Luxury Design</span>
+                <span class="pc-tag">Inventory Layout</span>
+                <span class="pc-tag">Brand Identity</span>
+                <span class="pc-tag">Inquiry Funnel</span>
+                <span class="pc-tag">Premium UX</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 6: Luigi Leon -->
+        <article class="pc-slide" data-idx="5" aria-roledescription="slide" aria-label="Project 6 of 6">
+          <div class="pc-visual">
+            <div class="pc-chrome">
+              <div class="pc-dots"><span></span><span></span><span></span></div>
+              <div class="pc-url">luigileon.com</div>
+            </div>
+            <div class="pc-preview">
+              <img class="pc-site" src="https://api.microlink.io/?url=https://www.luigileon.com/&screenshot=true&meta=false&embed=screenshot.url" alt="Luigi Leon website preview" loading="lazy">
+            </div>
+            <a class="pc-visit-overlay" href="https://www.luigileon.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Luigi Leon">
+              <span class="pc-visit-btn">Visit Live Site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+          <div class="pc-info">
+            <div class="pc-cat">Personal Brand</div>
+            <h3 class="pc-name">Luigi Leon</h3>
+            <p class="pc-summary">A personal brand needed a digital home that builds authority and captures opportunities. We built a minimal, content-led authority site with a clear contact flow, designed to convert the right inbound audience without ever feeling salesy.</p>
+            <div class="pc-work">
+              <div class="pc-work-label">What we did</div>
+              <div class="pc-tags">
+                <span class="pc-tag">Personal Brand</span>
+                <span class="pc-tag">Authority Site</span>
+                <span class="pc-tag">Contact Flow</span>
+                <span class="pc-tag">Content Design</span>
+                <span class="pc-tag">Minimal UX</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /pc-track -->
+    </div><!-- /pc-stage -->
+
+    <div class="pc-footer">
+      <div class="pc-progress" aria-hidden="true"><div class="pc-progress-bar" id="pcProgress"></div></div>
+      <div class="pc-dots-row" role="tablist" aria-label="Select a project">
+        <button class="pc-dot active" data-go="0" role="tab" aria-selected="true" aria-label="Go to project 1" type="button"></button>
+        <button class="pc-dot" data-go="1" role="tab" aria-selected="false" aria-label="Go to project 2" type="button"></button>
+        <button class="pc-dot" data-go="2" role="tab" aria-selected="false" aria-label="Go to project 3" type="button"></button>
+        <button class="pc-dot" data-go="3" role="tab" aria-selected="false" aria-label="Go to project 4" type="button"></button>
+        <button class="pc-dot" data-go="4" role="tab" aria-selected="false" aria-label="Go to project 5" type="button"></button>
+        <button class="pc-dot" data-go="5" role="tab" aria-selected="false" aria-label="Go to project 6" type="button"></button>
+      </div>
+    </div>
+
+  </div><!-- /port-carousel -->
+</section>
+
+<!-- WHY -->
+<section id="why" aria-labelledby="why-h">
+  <div class="con">
+    <div class="stag rv" style="justify-content:center;margin:0 auto 20px;" data-scramble="WHY SOCIAL BULLS">Why Social Bulls</div>
+    <h2 id="why-h" class="rv">Not an agency.<br><em>Your growth partner.</em></h2>
+    <p class="w-sub rv">We take a 100% hands-on approach. Bart personally builds every site, manages every campaign, and is accountable to every result.</p>
+    <div class="w-grid">
+      <div class="wc rv"><div class="tilt-sheen"></div><div class="wc-ico"><div class="tilt-sheen"></div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 3h10v6a5 5 0 01-10 0V3zM5 4H3v3a4 4 0 004 4M19 4h2v3a4 4 0 01-4 4"/></svg></div><h3>100% Hands-On</h3><p>Bart personally handles every website build, ad campaign, and SEO strategy. No outsourcing, no handoffs to junior staff.</p></div>
+      <div class="wc rv d1"><div class="tilt-sheen"></div><div class="wc-ico"><div class="tilt-sheen"></div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06-.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><h3>Done-For-You System</h3><p>We handle everything — site design, copywriting, ad setup, campaign management. You focus on the work. We flood your phone with leads.</p></div>
+      <div class="wc rv d2"><div class="tilt-sheen"></div><div class="wc-ico"><div class="tilt-sheen"></div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><h3>Contractor Specialists</h3><p>We work exclusively with local service businesses. We know your customer, your competition, and exactly how to beat them online.</p></div>
+      <div class="wc rv d3"><div class="tilt-sheen"></div><div class="wc-ico"><div class="tilt-sheen"></div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Results-Accountable</h3><p>We're so confident in our system that we tie our success to yours. If your leads don't increase, we keep working until they do — no excuses.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" aria-labelledby="proc-h">
+  <div class="con">
+    <div class="stag rv">How It Works</div>
+    <h2 id="proc-h" class="rv">From zero to <em>fully booked</em><br>in 4 steps.</h2>
+    <div id="proc-timeline">
+      <div class="pt-step">
+        <div class="pt-marker"><div class="pt-circle"><span>01</span></div><div class="pt-line"></div></div>
+        <div class="pt-body"><h3 class="p-title">Discovery Call</h3><p class="p-desc">We map your market, analyze your competition, and identify the biggest growth opportunity. Real strategy — no sales pitch.</p></div>
+      </div>
+      <div class="pt-step">
+        <div class="pt-marker"><div class="pt-circle"><span>02</span></div><div class="pt-line"></div></div>
+        <div class="pt-body"><h3 class="p-title">Strategy &amp; Build</h3><p class="p-desc">Bart personally designs and builds your custom site, sets up tracking, and builds the full lead generation infrastructure.</p></div>
+      </div>
+      <div class="pt-step">
+        <div class="pt-marker"><div class="pt-circle"><span>03</span></div><div class="pt-line"></div></div>
+        <div class="pt-body"><h3 class="p-title">Launch &amp; Drive Traffic</h3><p class="p-desc">Your site goes live. SEO, Google Ads, and Facebook Ads all fire together to drive targeted, high-intent leads to your business.</p></div>
+      </div>
+      <div class="pt-step">
+        <div class="pt-marker"><div class="pt-circle"><span>04</span></div><div class="pt-line"></div></div>
+        <div class="pt-body"><h3 class="p-title">Scale &amp; Optimize</h3><p class="p-desc">Monthly reviews, ruthless optimization, and scaling what works. Lead volume grows. Cost per lead drops. Revenue compounds.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS STRIP -->
+<section id="hstrip" aria-label="Client Results">
+  <div class="hs-head"><div class="stag rv" data-scramble="CLIENT RESULTS">Client Results</div></div>
+  <div class="hs-track">
+    <div class="hc"><div class="hc-kpi">+320%</div><div class="hc-lbl">Organic traffic in 90 days</div><div class="hc-name">Roofing Co. — Dallas, TX</div><div class="hc-biz">New site + Local SEO</div></div>
+    <div class="hc"><div class="hc-kpi">3.4×</div><div class="hc-lbl">Google Ads conversion rate</div><div class="hc-name">HVAC Company — Phoenix, AZ</div><div class="hc-biz">Google Ads rebuild</div></div>
+    <div class="hc"><div class="hc-kpi">$60K</div><div class="hc-lbl">Monthly revenue from Facebook leads</div><div class="hc-name">Siding Contractor — Denver, CO</div><div class="hc-biz">Facebook Ads + landing page</div></div>
+    <div class="hc"><div class="hc-kpi">#1</div><div class="hc-lbl">Google Maps ranking in 4 months</div><div class="hc-name">Painting Company — Nashville, TN</div><div class="hc-biz">Local SEO + GBP</div></div>
+    <div class="hc"><div class="hc-kpi">+180%</div><div class="hc-lbl">Inbound calls in 60 days</div><div class="hc-name">Pressure Washing — Charlotte, NC</div><div class="hc-biz">New site + Google Ads</div></div>
+    <!-- duplicate -->
+    <div class="hc"><div class="hc-kpi">+320%</div><div class="hc-lbl">Organic traffic in 90 days</div><div class="hc-name">Roofing Co. — Dallas, TX</div><div class="hc-biz">New site + Local SEO</div></div>
+    <div class="hc"><div class="hc-kpi">3.4×</div><div class="hc-lbl">Google Ads conversion rate</div><div class="hc-name">HVAC Company — Phoenix, AZ</div><div class="hc-biz">Google Ads rebuild</div></div>
+    <div class="hc"><div class="hc-kpi">$60K</div><div class="hc-lbl">Monthly revenue from Facebook leads</div><div class="hc-name">Siding Contractor — Denver, CO</div><div class="hc-biz">Facebook Ads + landing page</div></div>
+    <div class="hc"><div class="hc-kpi">#1</div><div class="hc-lbl">Google Maps ranking in 4 months</div><div class="hc-name">Painting Company — Nashville, TN</div><div class="hc-biz">Local SEO + GBP</div></div>
+    <div class="hc"><div class="hc-kpi">+180%</div><div class="hc-lbl">Inbound calls in 60 days</div><div class="hc-name">Pressure Washing — Charlotte, NC</div><div class="hc-biz">New site + Google Ads</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" aria-labelledby="t-h">
+  <div class="con">
+    <div class="stag rv" data-scramble="CLIENT TESTIMONIALS">Client Testimonials</div>
+    <h2 id="t-h" class="rv">Real businesses.<br><em>Real growth.</em></h2>
+    <div class="tg">
+      <div class="tc rv"><div class="tilt-sheen"></div>
+        <div class="t-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="t-q">"Bart built us a website that actually brings in calls. Within the first 60 days we had more inbound leads than the entire previous year. The ROI is insane — wish I'd found him sooner."</p>
+        <div class="t-auth"><div class="t-av">MR</div><div><div class="t-name">Mike R.</div><div class="t-role">Roofing Contractor, Dallas TX</div></div></div>
+      </div>
+      <div class="tc rv d1"><div class="tilt-sheen"></div>
+        <div class="t-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="t-q">"I was skeptical of another marketing agency. But Bart is different — he's hands-on, he actually knows the contractor space, and the website he built us looks better than any competitor in our market."</p>
+        <div class="t-auth"><div class="t-av">DS</div><div><div class="t-name">David S.</div><div class="t-role">Siding Contractor, Denver CO</div></div></div>
+      </div>
+      <div class="tc rv d2"><div class="tilt-sheen"></div>
+        <div class="t-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="t-q">"Our Google Ads now convert at 3x what we were getting before. And the SEO has us ranking #1 in less than 4 months. If you're a contractor not using Social Bulls, you're leaving money on the table."</p>
+        <div class="t-auth"><div class="t-av">JL</div><div><div class="t-name">Jason L.</div><div class="t-role">HVAC Company, Phoenix AZ</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" aria-label="Call to Action"><div id="cta-r1"></div><div id="cta-r2"></div>
+  <div class="con">
+    <div class="stag rv" data-scramble="REQUEST A SERVICE">Request A Service</div>
+    <h2>Ready to <em>dominate</em><br>your market?</h2>
+    <p class="rv">Fill out the form below and we'll reach out within 24 hours to build a custom strategy for your business.</p>
+    <form class="cta-form rv" id="ctaForm" action="https://formspree.io/f/mlgazzdr" method="POST" accept-charset="UTF-8" onsubmit="return handleCtaForm(event)">
+      <input type="hidden" name="_subject" value="New Service Request – Social Bulls Website">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="cta-row">
+        <div class="cta-field">
+          <label for="cf-name">Full Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="John Smith" required autocomplete="name">
+        </div>
+        <div class="cta-field">
+          <label for="cf-biz">Business Name</label>
+          <input type="text" id="cf-biz" name="business" placeholder="Smith Roofing LLC" required>
+        </div>
+      </div>
+      <div class="cta-row">
+        <div class="cta-field">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" name="email" placeholder="john@smithroofing.com" required autocomplete="email">
+        </div>
+        <div class="cta-field">
+          <label for="cf-phone">Phone Number</label>
+          <input type="tel" id="cf-phone" name="phone" placeholder="(813) 555-0100" autocomplete="tel">
+        </div>
+      </div>
+      <div class="cta-field">
+        <label>Services Needed</label>
+        <div class="cta-checks">
+          <label class="cta-chk"><input type="checkbox" name="services" value="Web Design"><span>Web Design</span></label>
+          <label class="cta-chk"><input type="checkbox" name="services" value="Local SEO"><span>Local SEO</span></label>
+          <label class="cta-chk"><input type="checkbox" name="services" value="Google Ads"><span>Google Ads</span></label>
+          <label class="cta-chk"><input type="checkbox" name="services" value="Facebook Ads"><span>Facebook Ads</span></label>
+          <label class="cta-chk"><input type="checkbox" name="services" value="Lead Generation"><span>Lead Generation</span></label>
+          <label class="cta-chk"><input type="checkbox" name="services" value="Full Package"><span>Full Package</span></label>
+        </div>
+      </div>
+      <div class="cta-field">
+        <label for="cf-msg">Tell Us About Your Business</label>
+        <textarea id="cf-msg" name="message" rows="4" placeholder="What do you do, where are you located, and what's your biggest challenge right now?"></textarea>
+      </div>
+      <div class="cta-submit">
+        <button type="submit" class="btn-g magnetic" id="ctaSubmitBtn">
+          Send My Request <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <p class="cta-note">No spam. No pressure. Just a real conversation.</p>
+      </div>
+      <div id="cta-success" class="cta-success" style="display:none">
+        <div class="cta-success-icon">✓</div>
+        <h3>Message Sent!</h3>
+        <p>We'll get back to you within 24 hours. Talk soon!</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div id="foot-ascii" aria-hidden="true">
+    <canvas id="foot-star"></canvas>
+  </div>
+  <div class="ft">
+    <div class="fb">
+      <div class="flog">
+        <img src="logo.png" alt="" aria-hidden="true">
+        Social <span>Bulls</span>
+      </div>
+      <p class="ftag">Premium web design &amp; lead generation for contractors who want to dominate their local market. Proudly serving businesses across the United States.</p>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc"><h4>Services</h4><ul><li><a href="#services">Web Design</a></li><li><a href="#services">Local SEO</a></li><li><a href="#services">Google Ads</a></li><li><a href="#services">Facebook Ads</a></li><li><a href="#services">Lead Generation</a></li></ul></div>
+      <div class="fc"><h4>Company</h4><ul><li><a href="#why">Why Us</a></li><li><a href="#portfolio">Our Work</a></li><li><a href="#process">Process</a></li><li><a href="#testimonials">Results</a></li><li><a href="mailto:socialbullagency@gmail.com">Contact Bart</a></li></ul></div>
+    </div>
+  </div>
+  <div class="fb2">
+    <p class="fc2">© 2025 Social Bulls. All rights reserved. United States.</p>
+    <span class="fb3">Built by Social Bulls</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── CURSOR ──────────────────────────────────────────────────────────── */
+const CD = document.getElementById('cd'), CR = document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;CD.style.left=mx+'px';CD.style.top=my+'px';});
+(function mv(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(mv);})();
+document.querySelectorAll('a,button,.sc,.wc,.tc,.pi,.hc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+/* ── PARTICLES — disabled (pure black hero) ─────────────────────────── */
+
+/* ── LOADER ──────────────────────────────────────────────────────────── */
+const ldr=document.getElementById('ldr'),lb=document.getElementById('lb'),lw=document.getElementById('lw'),lp=document.getElementById('lp');
+gsap.to(lw,{opacity:1,y:0,duration:.5,delay:.1,ease:'power3.out'});
+let pct=0;
+const pi=setInterval(()=>{pct=Math.min(pct+Math.random()*16,92);lb.style.width=pct+'%';lp.textContent=Math.round(pct)+'%';},80);
+gsap.to(lb,{width:'100%',duration:1.4,ease:'power2.inOut',delay:.2,onComplete:()=>{
+  clearInterval(pi);lp.textContent='100%';
+  gsap.to(ldr,{yPercent:-100,duration:.8,ease:'power4.inOut',delay:.15,onComplete:()=>{ldr.style.display='none';heroIn();}});
+}});
+
+/* ── HERO IN ─────────────────────────────────────────────────────────── */
+function heroIn(){
+  const tl=gsap.timeline();
+  tl.to('.h-ey',{opacity:1,duration:.5,ease:'power3.out'})
+    .to('#hh .li',{y:0,duration:1,stagger:.13,ease:'power4.out'},'-=.2')
+    .to('#hsub',{opacity:1,y:0,duration:.7,ease:'power3.out'},'-=.5')
+    .to('#hacts',{opacity:1,y:0,duration:.6,ease:'power3.out'},'-=.4')
+    .to('#hscroll',{opacity:1,duration:.5},'-=.2')
+    .to('#hdeco',{opacity:1,duration:.9,ease:'power3.out'},'-=.6');
+}
+
+/* ── SCROLL REVEAL + COUNTERS ────────────────────────────────────────── */
+const io=new IntersectionObserver(e=>{
+  e.forEach(el=>{
+    if(el.isIntersecting){
+      el.target.classList.add('vis');
+      el.target.querySelectorAll?.('.sn').forEach(n=>cnt(n));
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.rv,.st').forEach(el=>io.observe(el));
+
+function cnt(el){
+  const t=+el.dataset.target,s=el.dataset.sfx||'',d=1800,s0=performance.now();
+  (function tk(now){const p=Math.min((now-s0)/d,1),e=1-Math.pow(1-p,4);el.textContent=Math.round(e*t)+s;if(p<1)requestAnimationFrame(tk);else el.textContent=t+s;})(s0);
+}
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>60),{passive:true});
+
+/* ── PORTFOLIO CAROUSEL ──────────────────────────────────────────────── */
+(function(){
+  const track = document.querySelector('.pc-track');
+  if(!track) return;
+  const slides = track.querySelectorAll('.pc-slide');
+  const total = slides.length;
+  const prev = document.getElementById('pcPrev');
+  const next = document.getElementById('pcNext');
+  const counter = document.getElementById('pcCurrent');
+  const totalEl = document.getElementById('pcTotal');
+  const progress = document.getElementById('pcProgress');
+  const dots = document.querySelectorAll('.pc-dot');
+  const stage = document.querySelector('.pc-stage');
+  let idx = 0;
+
+  if(totalEl) totalEl.textContent = String(total).padStart(2,'0');
+
+  function render(){
+    track.style.transform = 'translateX(-'+(idx*100)+'%)';
+    if(counter) counter.textContent = String(idx+1).padStart(2,'0');
+    if(progress) progress.style.width = ((idx+1)/total*100) + '%';
+    dots.forEach((d,i)=>{
+      d.classList.toggle('active', i===idx);
+      d.setAttribute('aria-selected', i===idx ? 'true':'false');
+    });
+    slides.forEach((s,i)=>{
+      s.setAttribute('aria-hidden', i===idx ? 'false':'true');
+    });
+  }
+
+  function go(n){ idx = (n + total) % total; render(); }
+
+  if(prev) prev.addEventListener('click', ()=>go(idx-1));
+  if(next) next.addEventListener('click', ()=>go(idx+1));
+  dots.forEach(d => d.addEventListener('click', ()=>{
+    const target = parseInt(d.dataset.go, 10);
+    if(!isNaN(target)) go(target);
+  }));
+
+  /* Keyboard navigation */
+  document.addEventListener('keydown', e=>{
+    const rect = stage && stage.getBoundingClientRect();
+    const inView = rect && rect.top < innerHeight && rect.bottom > 0;
+    if(!inView) return;
+    if(e.key==='ArrowLeft') go(idx-1);
+    if(e.key==='ArrowRight') go(idx+1);
+  });
+
+  /* Touch / swipe */
+  let sx=0, sy=0, dx=0, dy=0, touching=false;
+  if(stage){
+    stage.addEventListener('touchstart', e=>{
+      const t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; dx=0; dy=0; touching=true;
+    }, {passive:true});
+    stage.addEventListener('touchmove', e=>{
+      if(!touching) return;
+      const t=e.changedTouches[0]; dx=t.clientX-sx; dy=t.clientY-sy;
+    }, {passive:true});
+    stage.addEventListener('touchend', ()=>{
+      if(!touching) return; touching=false;
+      if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
+        if(dx < 0) go(idx+1); else go(idx-1);
+      }
+    });
+  }
+
+  /* Image fallback chain for previews */
+  document.querySelectorAll('.pc-site').forEach(img=>{
+    img.addEventListener('error', function(){
+      const chain = (this.dataset.fallback||'').split('|').filter(Boolean);
+      if(chain.length){
+        this.dataset.fallback = chain.slice(1).join('|');
+        this.src = chain[0];
+      }
+    });
+  });
+
+  render();
+})();
+
+/* ── GSAP SCROLL ANIMATIONS ──────────────────────────────────────────── */
+gsap.to('.h-inner',{y:65,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.hg1',{y:45,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.from('#services .sc',{scrollTrigger:{trigger:'.sg',start:'top 85%'},x:-56,opacity:0,duration:.9,stagger:.18,ease:'power3.out'});
+gsap.from('.wc',{scrollTrigger:{trigger:'.w-grid',start:'top 80%'},y:55,opacity:0,duration:.85,stagger:.1,ease:'power3.out'});
+/* ── PROCESS TIMELINE ANIMATION ─── */
+(function(){
+  const steps = document.querySelectorAll('.pt-step');
+  if (!steps.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = [...steps].indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('tl-in'), idx * 220);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  steps.forEach(s => obs.observe(s));
+})();
+gsap.from('.tc',{scrollTrigger:{trigger:'.tg',start:'top 80%'},y:55,opacity:0,duration:.85,stagger:.13,ease:'power3.out'});
+gsap.from('.port-carousel',{scrollTrigger:{trigger:'.port-carousel',start:'top 80%'},y:60,opacity:0,duration:.9,ease:'power3.out'});
+/* CTA h2 always visible — no animation needed */
+gsap.to('#hdeco',{y:-40,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+/* ── MAGNETIC ─────────────────────────────────────────────────────────── */
+document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect(),dx=(e.clientX-r.left-r.width/2)*.38,dy=(e.clientY-r.top-r.height/2)*.38;
+    gsap.to(btn,{x:dx,y:dy,duration:.3,ease:'power2.out'});
+  });
+  btn.addEventListener('mouseleave',()=>gsap.to(btn,{x:0,y:0,duration:.6,ease:'elastic.out(1,.4)'}));
+});
+
+/* Smooth anchors handled by Lenis below */
+
+/* ════════════════════════════════════════════════════════
+   VISUAL UPGRADES v2 JS
+═══════════════════════════════════════════════════════ */
+
+/* ── LENIS SMOOTH SCROLL ──────────────────────────────── */
+const lenis = new Lenis({
+  duration: 1.35,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothTouch: false,
+  syncTouch: false,
+});
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+/* Smooth anchors via Lenis */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return; e.preventDefault();
+    lenis.scrollTo(t, { offset: -80, duration: 1.4 });
+  });
+});
+
+/* ── SCROLL PROGRESS BAR ──────────────────────────────── */
+const spb = document.getElementById('spb');
+lenis.on('scroll', ({ scroll }) => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  spb.style.width = (scroll / total * 100) + '%';
+});
+
+/* ── VELOCITY BLUR ────────────────────────────────────── */
+let vTimer;
+lenis.on('scroll', ({ velocity }) => {
+  if (Math.abs(velocity) > 1.8) {
+    document.body.classList.add('vblur');
+    clearTimeout(vTimer);
+    vTimer = setTimeout(() => document.body.classList.remove('vblur'), 120);
+  }
+});
+
+/* ── SPOTLIGHT — disabled (hero kept pure black) ───────── */
+
+/* ── SECTION DOTS ─────────────────────────────────────── */
+const sdots = document.querySelectorAll('.si-dot');
+const sdSecs = ['hero','services','portfolio','why','process','hstrip','testimonials','cta'];
+const sdObs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      const idx = sdSecs.indexOf(en.target.id);
+      if (idx >= 0) {
+        sdots.forEach(d => d.classList.remove('act'));
+        if (sdots[idx]) sdots[idx].classList.add('act');
+      }
+    }
+  });
+}, { threshold: 0.35, rootMargin: '-10% 0px -10% 0px' });
+sdSecs.forEach(s => { const el = document.getElementById(s); if (el) sdObs.observe(el); });
+
+/* ── 3D CARD TILT ─────────────────────────────────────── */
+function initTilt(selector) {
+  document.querySelectorAll(selector).forEach(card => {
+    const sheen = card.querySelector('.tilt-sheen');
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width;   // 0-1
+      const ny = (e.clientY - r.top) / r.height;    // 0-1
+      const rx2 = (nx - 0.5) * 14;
+      const ry2 = (ny - 0.5) * -14;
+      gsap.to(card, { rotateY: rx2, rotateX: ry2, transformPerspective: 900, duration: 0.35, ease: 'power2.out' });
+      if (sheen) {
+        sheen.style.setProperty('--sx', (nx * 100) + '%');
+        sheen.style.setProperty('--sy', (ny * 100) + '%');
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.75, ease: 'elastic.out(1,.45)' });
+    });
+  });
+}
+initTilt('.sc');
+initTilt('.wc');
+initTilt('.tc');
+
+/* ── TEXT SCRAMBLE ────────────────────────────────────── */
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%&';
+function scrambleTo(el, finalText, dur = 1300) {
+  const s0 = performance.now();
+  function tick(now) {
+    const p = Math.min((now - s0) / dur, 1);
+    let out = '';
+    for (let i = 0; i < finalText.length; i++) {
+      if (finalText[i] === ' ') { out += ' '; continue; }
+      if (p > (i / finalText.length + 0.12)) {
+        out += finalText[i];
+      } else {
+        out += CHARS[Math.floor(Math.random() * CHARS.length)];
+      }
+    }
+    el.textContent = out;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = finalText;
+  }
+  requestAnimationFrame(tick);
+}
+const scObs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting && en.target.dataset.scramble) {
+      en.target.classList.add('sc-active');
+      scrambleTo(en.target, en.target.dataset.scramble);
+      scObs.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-scramble]').forEach(el => scObs.observe(el));
+
+/* ── PROCESS – VERTICAL LAYOUT (no horizontal scroll) ─── */
+/* Steps are displayed in a standard 4-column grid — no JS needed */
+
+/* ── SKEW SECTION REVEALS ─────────────────────────────── */
+document.querySelectorAll('.sh h2, #cta h2, #testimonials h2, #why h2').forEach(el => {
+  el.classList.add('rv-skew');
+});
+const skewObs = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('vis'); skewObs.unobserve(en.target); } });
+}, { threshold: 0.3 });
+document.querySelectorAll('.rv-skew').forEach(el => skewObs.observe(el));
+
+/* ── ENHANCED HERO GSAP EFFECTS ───────────────────────── */
+// Gold deco parallax (extra depth)
+gsap.to('.geo', { y: i => (i + 1) * -22, ease: 'none',
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }});
+
+/* ══════════════════════════════════════════════════════
+   VISUAL UPGRADES v3 JS
+══════════════════════════════════════════════════════ */
+
+/* ── ASCII WORLD GLOBE — REAL CONTINENT SILHOUETTES ─── */
+(function() {
+  const wrap   = document.getElementById('bull-wrap');
+  const canvas = document.getElementById('bull-ascii');
+  if (!canvas || !wrap) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const CX = W/2, CY = H/2, R = Math.min(W,H)*0.42;
+  const FS = 9;
+  ctx.font = `bold ${FS}px 'Courier New',monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  /* ── Simplified continent polygons [lat, lng] ── */
+  const POLYS = [
+    /* North America */
+    [[71,-138],[61,-148],[58,-137],[54,-132],[49,-124],[45,-124],
+     [37,-122],[32,-117],[29,-110],[23,-97],[15,-93],[15,-84],
+     [25,-80],[30,-81],[35,-76],[42,-70],[44,-66],[47,-54],
+     [52,-56],[58,-63],[64,-78],[68,-82],[72,-93],[72,-128],[71,-138]],
+    /* South America */
+    [[12,-72],[10,-62],[7,-61],[5,-52],[0,-50],[0,-44],
+     [-5,-35],[-10,-38],[-15,-40],[-23,-42],[-34,-54],
+     [-42,-65],[-55,-67],[-55,-64],[-50,-68],[-42,-65],
+     [-34,-57],[-23,-43],[-15,-75],[-10,-77],[-5,-81],[5,-77],[12,-72]],
+    /* Europe */
+    [[72,28],[70,19],[66,14],[61,5],[58,7],[51,2],[44,-9],
+     [36,-9],[36,-5],[37,0],[41,2],[43,5],[44,12],[38,15],
+     [37,25],[42,29],[47,30],[46,23],[48,17],[54,20],[56,21],
+     [59,25],[62,26],[66,25],[72,28]],
+    /* Africa */
+    [[37,10],[37,37],[14,43],[12,44],[10,51],[2,42],[0,41],
+     [-10,40],[-20,35],[-35,27],[-34,18],[-25,15],
+     [-15,12],[-5,10],[5,1],[14,-1],[15,-17],[20,-17],[30,-10],[37,10]],
+    /* Asia (Siberia + Middle East + East Asia) */
+    [[72,28],[72,60],[72,80],[72,110],[72,135],[67,141],
+     [55,135],[50,137],[44,135],[38,126],[34,130],
+     [22,114],[10,105],[0,105],[-5,105],[5,100],
+     [8,77],[12,80],[20,87],[22,88],[26,90],[30,97],
+     [28,76],[23,63],[23,57],[18,55],[12,44],[14,43],
+     [37,37],[37,29],[42,29],[47,30],[48,17],
+     [54,20],[59,25],[66,25],[72,28]],
+    /* SE Asia islands */
+    [[5,100],[1,104],[-5,105],[-8,115],[-8,130],[-3,140],
+     [5,120],[10,105],[5,100]],
+    /* Australia */
+    [[-14,130],[-14,137],[-22,114],[-32,115],[-35,119],
+     [-38,145],[-39,147],[-37,150],[-33,152],[-28,153],
+     [-23,150],[-17,146],[-14,130]],
+    /* Greenland */
+    [[84,-44],[83,-20],[76,-18],[72,-23],[70,-26],[70,-42],
+     [72,-57],[76,-68],[80,-68],[82,-60],[84,-44]],
+    /* Antarctica */
+    [[-65,-180],[-65,-120],[-65,-60],[-65,0],[-65,60],[-65,120],[-65,180],
+     [-80,180],[-80,120],[-80,60],[-80,0],[-80,-60],[-80,-120],[-80,-180],[-65,-180]],
+    /* Japan (Honshu) */
+    [[44,145],[41,141],[38,141],[34,135],[33,131],[35,130],[38,140],[42,143],[44,145]],
+    /* Iceland */
+    [[66,-24],[64,-22],[64,-13],[66,-13],[66,-24]],
+    /* British Isles */
+    [[58,-5],[57,-7],[54,-5],[52,-5],[51,-3],[51,1],[53,0],[57,-2],[58,-5]],
+    /* Madagascar */
+    [[-12,49],[-16,50],[-25,44],[-16,43],[-12,49]],
+    /* New Zealand (S. Island) */
+    [[-44,168],[-46,167],[-46,169],[-43,173],[-41,174],[-44,168]],
+  ];
+
+  /* Point-in-polygon — ray casting algorithm */
+  function pip(lat, lng, poly) {
+    let inside = false, n = poly.length;
+    for (let i = 0, j = n-1; i < n; j = i++) {
+      const [yi, xi] = poly[i], [yj, xj] = poly[j];
+      if (((yi > lat) !== (yj > lat)) && (lng < (xj-xi)*(lat-yi)/(yj-yi)+xi))
+        inside = !inside;
+    }
+    return inside;
+  }
+  function isLand(lat, lng) {
+    for (const p of POLYS) if (pip(lat, lng, p)) return true;
+    return false;
+  }
+
+  /* Pre-generate sample points once at startup */
+  const PTS = [];
+  const STEP = 3.5;
+  for (let lat = -85; lat <= 85; lat += STEP) {
+    for (let lng = -180; lng < 180; lng += STEP) {
+      PTS.push({ latR: lat*Math.PI/180, lngR: lng*Math.PI/180, land: isLand(lat,lng) });
+    }
+  }
+
+  let rot = 0.4, tiltX = 0;
+  const LAND_CH = '▓▒░#@&%';
+  const SEA_CH  = '·';
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    /* Ocean sphere base */
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(6,8,16,0.55)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(212,175,55,0.07)'; ctx.lineWidth = 1; ctx.stroke();
+
+    /* Project all points */
+    const vis = [];
+    const cosT = Math.cos(tiltX), sinT = Math.sin(tiltX);
+    for (const p of PTS) {
+      const lng2 = p.lngR + rot;
+      const cL = Math.cos(p.latR), sL = Math.sin(p.latR);
+      const cG = Math.cos(lng2), sG = Math.sin(lng2);
+      const x3 = cL*sG, y3 = -sL, z3 = cL*cG;
+      const y4 = y3*cosT - z3*sinT;
+      const z4 = y3*sinT + z3*cosT;
+      if (z4 > -0.1) vis.push({ sx: CX+R*x3, sy: CY+R*y4, z: z4, land: p.land });
+    }
+    vis.sort((a,b) => a.z - b.z);
+
+    for (const p of vis) {
+      const d = (p.z + 1)/2;
+      if (p.land) {
+        const ci = Math.min(Math.floor(d*(LAND_CH.length-1)), LAND_CH.length-1);
+        ctx.fillStyle = `rgba(212,175,55,${(0.3 + d*0.65).toFixed(2)})`;
+        ctx.fillText(LAND_CH[ci], p.sx, p.sy);
+      } else if (d > 0.55) {
+        ctx.fillStyle = `rgba(120,145,185,${(d*0.12).toFixed(2)})`;
+        ctx.fillText(SEA_CH, p.sx, p.sy);
+      }
+    }
+    rot += 0.004;
+    requestAnimationFrame(draw);
+  }
+  draw();
+  setTimeout(() => canvas.classList.add('vis'), 1200);
+
+  /* 3D mouse tilt */
+  document.addEventListener('mousemove', e => {
+    if (window.scrollY > window.innerHeight*0.45) return;
+    const cx2 = window.innerWidth/2, cy2 = window.innerHeight/2;
+    tiltX = ((e.clientY - cy2)/cy2)*0.15;
+    gsap.to(wrap, { rotateX: ((e.clientY-cy2)/cy2)*-10, rotateY: ((e.clientX-cx2)/cx2)*16,
+      transformPerspective: 1400, duration: 1.2, ease: 'power3.out' });
+  });
+})();
+
+/* ── PORTFOLIO DEMO ANIMATION ON SCROLL-IN ───────────── */
+(function() {
+  const portSec = document.getElementById('portfolio');
+  if (!portSec) return;
+  let played = false;
+  const portObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting && !played) {
+        played = true;
+        portObs.unobserve(en.target);
+        const piItems = document.querySelectorAll('.pi');
+        let idx = 0;
+        function step() {
+          piItems.forEach(i => i.classList.remove('open'));
+          if (idx < piItems.length) {
+            piItems[idx].classList.add('open');
+            idx++;
+            setTimeout(step, 350);
+          } else {
+            /* settle back to first card */
+            setTimeout(() => {
+              piItems.forEach(i => i.classList.remove('open'));
+              if (piItems[0]) piItems[0].classList.add('open');
+            }, 200);
+          }
+        }
+        setTimeout(step, 700);
+      }
+    });
+  }, { threshold: 0.38 });
+  portObs.observe(portSec);
+})();
+
+/* ── PORTFOLIO IMAGE FALLBACK ────────────────────────────── */
+(function() {
+  document.querySelectorAll('.pi-site').forEach(function(img) {
+  var tried = 0;
+  var origSrc = img.getAttribute('src') || '';
+  var siteUrl = '';
+  var urlMatch = origSrc.match(/[?&]url=([^&]+)/);
+  if (urlMatch) siteUrl = decodeURIComponent(urlMatch[1]);
+
+  img.addEventListener('error', function() {
+    tried++;
+    if (tried === 1 && siteUrl) {
+      this.src = 'https://image.thum.io/get/width/1200/crop/800/' + siteUrl;
+    } else if (tried === 2 && siteUrl) {
+      this.src = 'https://mini.s-shot.ru/1200x800/1024/' + encodeURIComponent(siteUrl);
+    } else {
+      this.style.display = 'none';
+      var ph = document.createElement('div');
+      ph.className = 'pi-placeholder';
+      ph.innerHTML = '<div class="pi-ph-inner"><span class="pi-ph-ico">↗</span><p class="pi-ph-txt">Live Preview</p></div>';
+      this.parentNode.style.background = 'linear-gradient(135deg,#080808 0%,#1a1510 100%)';
+      this.parentNode.appendChild(ph);
+    }
+  });
+});
+})();
+
+/* ── FOOTER STARS — VIBRANT NIGHT SKY + SHOOTING STARS ── */
+(function() {
+  const cvs = document.getElementById('foot-star');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  let stars = [], shooters = [];
+
+  function resize() {
+    cvs.width = cvs.offsetWidth || cvs.parentElement.offsetWidth || 1200;
+    cvs.height = cvs.offsetHeight || cvs.parentElement.offsetHeight || 340;
+    init();
+  }
+
+  function init() {
+    const W = cvs.width, H = cvs.height;
+    stars = [];
+    const count = Math.max(180, Math.floor(W * H / 900));
+    for (let i = 0; i < count; i++) {
+      const bright = Math.random();
+      const isBright = bright > 0.7;
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: isBright ? (0.5 + bright * 1.8) : (0.15 + Math.random() * 0.7),
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.4 + Math.random() * 2.2,
+        minOp: 0.04 + Math.random() * 0.1,
+        maxOp: isBright ? (0.65 + bright * 0.35) : (0.18 + Math.random() * 0.35),
+        gold: Math.random() > 0.85,
+        glow: bright > 0.78,
+        twinkleSharp: Math.random() > 0.6
+      });
+    }
+  }
+
+  function spawnShooter() {
+    const W = cvs.width, H = cvs.height;
+    const angle = (Math.random() * 30 + 15) * Math.PI / 180; // 15-45° downward
+    const speed = 6 + Math.random() * 5;
+    const len = 80 + Math.random() * 120;
+    shooters.push({
+      x: Math.random() * W * 0.85,
+      y: Math.random() * H * 0.5,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      len: len,
+      life: 1.0,
+      decay: 0.018 + Math.random() * 0.012,
+      trail: [],
+      gold: Math.random() > 0.7
+    });
+  }
+
+  window.addEventListener('resize', resize);
+  setTimeout(resize, 100);
+
+  // Shooting star every 7 seconds
+  setInterval(spawnShooter, 7000);
+  // First one after 2s so user sees it early
+  setTimeout(spawnShooter, 2000);
+
+  let t = 0;
+  function draw() {
+    const W = cvs.width, H = cvs.height;
+    ctx.clearRect(0, 0, W, H);
+    t += 0.009;
+
+    // ── Draw regular stars ──
+    for (const s of stars) {
+      let op;
+      if (s.twinkleSharp) {
+        // sharper flicker — use abs(sin) for more rapid on/off feel
+        const raw = Math.abs(Math.sin(t * s.speed * 1.4 + s.phase));
+        op = s.minOp + (s.maxOp - s.minOp) * raw;
+      } else {
+        op = s.minOp + (s.maxOp - s.minOp) * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+      }
+
+      // Glow halo for bright stars
+      if (s.glow && op > s.maxOp * 0.45) {
+        const gR = s.r * (s.gold ? 9 : 7);
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, gR);
+        const a = op * (s.gold ? 0.28 : 0.22);
+        g.addColorStop(0, s.gold ? `rgba(212,175,55,${a})` : `rgba(200,210,255,${a})`);
+        g.addColorStop(0.4, s.gold ? `rgba(212,175,55,${a * 0.4})` : `rgba(180,190,255,${a * 0.3})`);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, gR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Star dot
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.gold
+        ? `rgba(212,175,55,${op})`
+        : (s.glow ? `rgba(210,220,255,${op})` : `rgba(255,255,255,${op})`);
+      ctx.fill();
+
+      // Cross sparkle for very bright stars at peak brightness
+      if (s.glow && s.r > 1.5 && op > s.maxOp * 0.75) {
+        const cl = s.r * 4;
+        const ca = op * 0.55;
+        ctx.strokeStyle = s.gold ? `rgba(212,175,55,${ca})` : `rgba(220,230,255,${ca})`;
+        ctx.lineWidth = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(s.x - cl, s.y); ctx.lineTo(s.x + cl, s.y);
+        ctx.moveTo(s.x, s.y - cl); ctx.lineTo(s.x, s.y + cl);
+        ctx.stroke();
+      }
+    }
+
+    // ── Draw shooting stars ──
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const sh = shooters[i];
+      sh.trail.push({ x: sh.x, y: sh.y });
+      if (sh.trail.length > 28) sh.trail.shift();
+      sh.x += sh.vx;
+      sh.y += sh.vy;
+      sh.life -= sh.decay;
+
+      if (sh.life <= 0 || sh.x > W + 50 || sh.y > H + 50) {
+        shooters.splice(i, 1);
+        continue;
+      }
+
+      if (sh.trail.length > 2) {
+        const grad = ctx.createLinearGradient(
+          sh.trail[0].x, sh.trail[0].y,
+          sh.trail[sh.trail.length - 1].x, sh.trail[sh.trail.length - 1].y
+        );
+        const c = sh.gold ? `212,175,55` : `210,225,255`;
+        grad.addColorStop(0, `rgba(${c},0)`);
+        grad.addColorStop(0.6, `rgba(${c},${sh.life * 0.55})`);
+        grad.addColorStop(1, `rgba(${c},${sh.life * 0.92})`);
+        ctx.beginPath();
+        ctx.moveTo(sh.trail[0].x, sh.trail[0].y);
+        for (let j = 1; j < sh.trail.length; j++) {
+          ctx.lineTo(sh.trail[j].x, sh.trail[j].y);
+        }
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5 * sh.life;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // Bright head glow
+        const headGlow = ctx.createRadialGradient(sh.x, sh.y, 0, sh.x, sh.y, 8);
+        headGlow.addColorStop(0, `rgba(${c},${sh.life * 0.9})`);
+        headGlow.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = headGlow;
+        ctx.beginPath();
+        ctx.arc(sh.x, sh.y, 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+
+/* ── CTA FORM HANDLER (Formspree AJAX) ─────────────────── */
+function handleCtaForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('ctaForm');
+  const btn = document.getElementById('ctaSubmitBtn');
+  const success = document.getElementById('cta-success');
+  if (!form || !btn) return false;
+
+  /* Honeypot — bail silently if bots fill it */
+  const gotcha = form.querySelector('input[name="_gotcha"]');
+  if (gotcha && gotcha.value) return false;
+
+  /* Collect data; fold multi-select services into a readable list */
+  const data = new FormData(form);
+  const services = [...form.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
+  data.delete('services');
+  data.set('services', services.length ? services.join(', ') : 'None selected');
+  if (data.get('business')) {
+    data.set('_subject', 'New Service Request – ' + data.get('business'));
+  }
+
+  /* Button state */
+  const originalLabel = btn.innerHTML;
+  btn.innerHTML = 'Sending…';
+  btn.disabled = true;
+
+  /* Clear any prior error */
+  let errEl = document.getElementById('cta-error');
+  if (errEl) errEl.remove();
+
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(res => {
+    if (res.ok) {
+      form.querySelectorAll('.cta-row, .cta-field, .cta-submit').forEach(el => el.style.display = 'none');
+      if (success) success.style.display = 'block';
+      form.reset();
+    } else {
+      return res.json().then(body => {
+        const msg = (body && body.errors && body.errors.map(x => x.message).join(', ')) || 'Something went wrong. Please try again.';
+        throw new Error(msg);
+      }).catch(() => { throw new Error('Something went wrong. Please try again.'); });
+    }
+  }).catch(err => {
+    btn.innerHTML = originalLabel;
+    btn.disabled = false;
+    const note = document.createElement('p');
+    note.id = 'cta-error';
+    note.className = 'cta-note';
+    note.style.color = '#ff5a5a';
+    note.style.marginTop = '10px';
+    note.textContent = (err && err.message) ? err.message : 'Something went wrong. Please try again.';
+    const submitWrap = form.querySelector('.cta-submit') || form;
+    submitWrap.appendChild(note);
+  });
+
+  return false;
+}
+
+/* clip-path reveals removed — were causing blank sections */
+
+</script>
+</body>
+</html>
