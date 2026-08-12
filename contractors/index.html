@@ -606,6 +606,25 @@
       animation: pip 2s ease infinite;
     }
 
+    /* Calendly inline embed — styled to match the design system */
+    .calendly-shell {
+      max-width: 900px; margin: 44px auto 0;
+      background: #050505;
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: 6px;
+      padding: 8px;
+      box-shadow: 0 40px 100px -20px rgba(0,0,0,.7), 0 0 60px -10px rgba(212,175,55,.12);
+      position: relative;
+    }
+    .calendly-inline-widget {
+      border-radius: 4px; overflow: hidden;
+      background: #0a0a0a;
+    }
+    @media (max-width: 640px) {
+      .calendly-shell { padding: 4px; margin-top: 32px; border-radius: 4px; }
+      .calendly-inline-widget { min-height: 680px !important; }
+    }
+
     /* ═══════════════ FOOTER ═══════════════ */
     #footer {
       background: #000;
@@ -912,14 +931,17 @@
     <h2 class="h2 rv d1">Stop paying for <em>leads</em> that go nowhere.</h2>
     <p class="rv d2">Book a free strategy call. We'll tell you if we can actually help — or send you on your way.</p>
 
-    <a href="https://calendly.com/socialbullagency" class="btn-g big magnetic rv d2" style="margin: 0 auto;">
-      Book My Free Strategy Call
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-    </a>
-
-    <div class="cta-scarcity rv d3">
+    <div class="cta-scarcity rv d2" style="margin-top: 0; margin-bottom: 20px;">
       Only a Handful of New Businesses per Month — So We Actually Deliver
     </div>
+
+    <!-- Calendly inline widget -->
+    <div class="calendly-shell rv d3">
+      <div class="calendly-inline-widget"
+           data-url="https://calendly.com/socialbullagency/30min?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f8f8f6&primary_color=d4af37"
+           style="min-width:320px;height:700px;"></div>
+    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </div>
 </section>
 
@@ -1047,6 +1069,19 @@ const stickyIo = new IntersectionObserver(entries => {
   entries.forEach(e => { sticky.classList.toggle('show', !e.isIntersecting); });
 }, { rootMargin: '-100px 0px 0px 0px' });
 stickyIo.observe(hero);
+
+/* ═══════════════ CALENDLY — redirect to /thank-you/ after booking ═══════════════ */
+window.addEventListener('message', function(e) {
+  if (!e.data || typeof e.data !== 'object') return;
+  // Calendly fires 'calendly.event_scheduled' when a booking is confirmed
+  if (e.data.event === 'calendly.event_scheduled') {
+    // Optional: fire Meta Pixel + Google Ads conversion events
+    if (typeof fbq === 'function') { try { fbq('track', 'Schedule'); } catch(_) {} }
+    if (typeof gtag === 'function') { try { gtag('event', 'schedule', { event_category: 'engagement' }); } catch(_) {} }
+    // Redirect to the thank-you page
+    setTimeout(function(){ window.location.href = '/thank-you/'; }, 400);
+  }
+});
 
 /* ═══════════════ VSL — YouTube lazy-load (fast page + one-click play) ═══════════════ */
 (function() {
