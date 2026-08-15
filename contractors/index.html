@@ -606,9 +606,23 @@
       animation: pip 2s ease infinite;
     }
 
+    /* Book section (Calendly at top of page, right under hero) */
+    .book-section {
+      padding: 60px 60px 100px;
+      background: var(--black);
+      text-align: center;
+      position: relative;
+    }
+    .book-section .con { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .book-sub {
+      font-size: clamp(.95rem, 1.4vw, 1.1rem);
+      font-weight: 300; color: var(--mu);
+      max-width: 500px; margin: 0 auto 20px; line-height: 1.7;
+    }
+
     /* Calendly inline embed — styled to match the design system */
     .calendly-shell {
-      max-width: 900px; margin: 44px auto 0;
+      max-width: 900px; margin: 32px auto 0;
       background: #050505;
       border: 1px solid rgba(212,175,55,.22);
       border-radius: 6px;
@@ -620,9 +634,25 @@
       border-radius: 4px; overflow: hidden;
       background: #0a0a0a;
     }
-    @media (max-width: 640px) {
-      .calendly-shell { padding: 4px; margin-top: 32px; border-radius: 4px; }
-      .calendly-inline-widget { min-height: 680px !important; }
+
+    /* MOBILE: give Calendly enough vertical room to show
+       calendar → time slots → booking form without an inner scrollbar */
+    @media (max-width: 900px) {
+      .book-section { padding: 50px 24px 80px; }
+      .calendly-shell { padding: 4px; margin-top: 26px; border-radius: 4px; }
+      .calendly-inline-widget {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 1150px !important;
+        min-height: 1150px !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .book-section { padding: 40px 16px 70px; }
+      .calendly-inline-widget {
+        height: 1250px !important;
+        min-height: 1250px !important;
+      }
     }
 
     /* ═══════════════ FOOTER ═══════════════ */
@@ -728,6 +758,7 @@
 <!-- SECTION INDICATOR -->
 <div id="sect-ind">
   <div class="si-dot" data-sec="hero"></div>
+  <div class="si-dot" data-sec="book"></div>
   <div class="si-dot" data-sec="pain"></div>
   <div class="si-dot" data-sec="what"></div>
   <div class="si-dot" data-sec="proof"></div>
@@ -789,7 +820,7 @@
     </div>
 
     <div class="h-acts" id="hacts">
-      <a href="#cta" class="btn-g big magnetic">
+      <a href="#book" class="btn-g big magnetic">
         Book My Free Strategy Call
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
       </a>
@@ -798,6 +829,25 @@
   <div class="h-scroll" id="hscroll" aria-hidden="true">
     <div class="sbar"></div>
     <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ BOOK (Calendly — moved to top) ══════════════════════════════════════════════ -->
+<section id="book" class="book-section">
+  <div class="con">
+    <div class="stag rv" style="justify-content:center; margin: 0 auto 18px;">Pick A Time</div>
+    <h2 class="h2 center rv d1" style="margin-bottom: 14px;">Book your free <em>strategy call.</em></h2>
+    <p class="book-sub rv d2">30 minutes. Zero pressure. We'll tell you if we can actually help — or send you on your way.</p>
+
+    <div class="cta-scarcity rv d2" style="margin: 0 auto 32px;">
+      Only a Handful of New Businesses per Month
+    </div>
+
+    <div class="calendly-shell rv d3">
+      <div class="calendly-inline-widget"
+           data-url="https://calendly.com/socialbullagency/30min?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f8f8f6&primary_color=d4af37"
+           style="min-width:320px;height:700px;"></div>
+    </div>
   </div>
 </section>
 
@@ -932,26 +982,26 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════ FINAL CTA ══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════ FINAL CTA (scrolls back up to calendar) ══════════════════════════════════════════════ -->
 <section id="cta">
   <div class="con">
     <div class="stag rv" style="justify-content:center; margin: 0 auto 20px;">Ready When You Are</div>
     <h2 class="h2 rv d1">Stop paying for <em>leads</em> that go nowhere.</h2>
-    <p class="rv d2">Book a free strategy call. We'll tell you if we can actually help — or send you on your way.</p>
+    <p class="rv d2">Now that you've seen how it works — grab a slot on the calendar above and let's talk.</p>
 
-    <div class="cta-scarcity rv d2" style="margin-top: 0; margin-bottom: 20px;">
+    <a href="#book" class="btn-g big magnetic rv d2" style="margin: 32px auto 0;">
+      Schedule My Call
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </a>
+
+    <div class="cta-scarcity rv d3">
       Only a Handful of New Businesses per Month — So We Actually Deliver
     </div>
-
-    <!-- Calendly inline widget -->
-    <div class="calendly-shell rv d3">
-      <div class="calendly-inline-widget"
-           data-url="https://calendly.com/socialbullagency/30min?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f8f8f6&primary_color=d4af37"
-           style="min-width:320px;height:700px;"></div>
-    </div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   </div>
 </section>
+
+<!-- Calendly script (loads once for the widget above) -->
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <!-- ══════════════════════════════════════════════ FOOTER ══════════════════════════════════════════════ -->
 <footer id="footer">
@@ -969,7 +1019,7 @@
 </footer>
 
 <!-- STICKY MOBILE CTA -->
-<a href="#cta" class="sticky-cta" id="stickyCta">
+<a href="#book" class="sticky-cta" id="stickyCta">
   Book My Free Strategy Call →
 </a>
 
@@ -1056,7 +1106,7 @@ lenis.on('scroll', ({ scroll }) => {
 
 /* ═══════════════ SECTION DOTS ═══════════════ */
 const sdots = document.querySelectorAll('.si-dot');
-const sdSecs = ['hero','pain','what','proof','cta'];
+const sdSecs = ['hero','book','pain','what','proof','cta'];
 const sdObs = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (en.isIntersecting) {
