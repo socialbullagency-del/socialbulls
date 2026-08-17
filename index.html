@@ -50,8 +50,9 @@
   <link rel="dns-prefetch" href="https://image.thum.io">
   <link rel="dns-prefetch" href="https://mini.s-shot.ru">
 
-  <!-- Fonts: trimmed to only weights actually used (was loading 200-900, saved ~15KB) -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+  <!-- Fonts: non-blocking load (preload + async apply). Removes ~780ms render-block. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800&display=swap"></noscript>
 
   <style>
     /* ═══════════════ TOKENS ═══════════════ */
@@ -568,35 +569,58 @@
     }
   </style>
 
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel + gtag + Clarity — DEFERRED to after page interactive (removes ~290 KiB from critical path) -->
   <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '847023648405650');
-  fbq('init', '1691288142238677');
-  fbq('track', 'PageView');
+    // Queue fbq/gtag/clarity calls BEFORE the actual scripts load, so any early tracking calls aren't lost.
+    window.fbq = window.fbq || function(){(window.fbq.q=window.fbq.q||[]).push(arguments)};
+    window.fbq.q = window.fbq.q || [];
+    window.fbq.loaded = false; window.fbq.version = '2.0';
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){window.dataLayer.push(arguments)};
+    window.gtag('js', new Date());
+    window.gtag('config', 'G-9QVSK1X6Y9');
+    window.clarity = window.clarity || function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};
+
+    // Track PageView immediately (queued until fbq loads)
+    window.fbq('init', '847023648405650');
+    window.fbq('init', '1691288142238677');
+    window.fbq('track', 'PageView');
+
+    // Load the actual tracking scripts after page is idle (or on first interaction — whichever comes first)
+    let _trkLoaded = false;
+    function _loadTrackers() {
+      if (_trkLoaded) return;
+      _trkLoaded = true;
+      // Meta Pixel
+      const fb = document.createElement('script');
+      fb.async = true;
+      fb.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      document.head.appendChild(fb);
+      // Google Analytics
+      const ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-9QVSK1X6Y9';
+      document.head.appendChild(ga);
+      // Microsoft Clarity
+      const cl = document.createElement('script');
+      cl.async = true;
+      cl.src = 'https://www.clarity.ms/tag/y367bwk7hl';
+      document.head.appendChild(cl);
+    }
+    // Load after page fully loaded + 2.5s idle window, OR on first user interaction (scroll, click, touch, mouse)
+    if (document.readyState === 'complete') {
+      setTimeout(_loadTrackers, 2500);
+    } else {
+      window.addEventListener('load', () => setTimeout(_loadTrackers, 2500), { once: true });
+    }
+    ['scroll','click','touchstart','mousemove','keydown'].forEach(ev =>
+      window.addEventListener(ev, _loadTrackers, { once: true, passive: true })
+    );
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=847023648405650&ev=PageView&noscript=1"/>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1691288142238677&ev=PageView&noscript=1"/>
   </noscript>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QVSK1X6Y9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9QVSK1X6Y9');
-  </script>
-
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "y367bwk7hl");
-  </script>
 </head>
 <body>
 
