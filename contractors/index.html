@@ -12,9 +12,23 @@
   <meta property="og:description" content="Real appointments. Real contractors. Real revenue. Book a free strategy call.">
   <meta property="og:type" content="website">
 
+  <!-- Preconnect hints — start DNS/TLS handshake to third-party domains early -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="preconnect" href="https://calendly.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://connect.facebook.net">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.clarity.ms">
+  <!-- DNS-prefetch as fallback for older browsers -->
+  <link rel="dns-prefetch" href="https://assets.calendly.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 
   <style>
     /* ═══════════════ TOKENS ═══════════════ */
@@ -1009,8 +1023,34 @@
   </div>
 </section>
 
-<!-- Calendly script (loads once for the widget above) -->
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly widget script — LAZY LOADED for perf (loads on scroll or after 2.5s idle) -->
+<script>
+(function loadCalendlyLazy(){
+  const target = document.getElementById('book');
+  if (!target) return;
+  let loaded = false;
+  const load = () => {
+    if (loaded) return; loaded = true;
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.async = true;
+    document.body.appendChild(s);
+  };
+  // Load when user scrolls near the booking section
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { load(); io.disconnect(); }
+    }, { rootMargin: '600px' });
+    io.observe(target);
+  }
+  // Fallback: load after 2.5s regardless — most users are still on the page by then
+  setTimeout(load, 2500);
+  // Or on any real interaction (touch/scroll) — earliest signal that someone's engaged
+  ['scroll','touchstart','pointerdown'].forEach(e => {
+    window.addEventListener(e, load, { once: true, passive: true });
+  });
+})();
+</script>
 
 <!-- ══════════════════════════════════════════════ FOOTER ══════════════════════════════════════════════ -->
 <footer id="footer">
@@ -1048,15 +1088,22 @@ document.querySelectorAll('a,button,.what-row,.pain-card,.proof-week,.proof-quot
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
 
-/* ═══════════════ LOADER ═══════════════ */
+/* ═══════════════ LOADER (fast — skip on mobile) ═══════════════ */
 const ldr=document.getElementById('ldr'),lb=document.getElementById('lb'),lw=document.getElementById('lw'),lp=document.getElementById('lp');
-gsap.to(lw,{opacity:1,y:0,duration:.5,delay:.1,ease:'power3.out'});
-let pct=0;
-const pi=setInterval(()=>{pct=Math.min(pct+Math.random()*16,92);lb.style.width=pct+'%';lp.textContent=Math.round(pct)+'%';},80);
-gsap.to(lb,{width:'100%',duration:1.2,ease:'power2.inOut',delay:.2,onComplete:()=>{
-  clearInterval(pi);lp.textContent='100%';
-  gsap.to(ldr,{yPercent:-100,duration:.8,ease:'power4.inOut',delay:.15,onComplete:()=>{ldr.style.display='none';heroIn();}});
-}});
+const isMobile = window.matchMedia('(max-width: 720px)').matches;
+
+if (isMobile) {
+  // Mobile: skip loader entirely — hero shows instantly
+  ldr.style.display = 'none';
+  heroIn();
+} else {
+  // Desktop: quick 350ms flash so brand still registers
+  gsap.to(lw,{opacity:1,y:0,duration:.25,ease:'power3.out'});
+  gsap.to(lb,{width:'100%',duration:.35,ease:'power2.out',onComplete:()=>{
+    lp.textContent='100%';
+    gsap.to(ldr,{yPercent:-100,duration:.35,ease:'power4.inOut',delay:.05,onComplete:()=>{ldr.style.display='none';heroIn();}});
+  }});
+}
 
 /* ═══════════════ HERO IN ═══════════════ */
 function heroIn(){
