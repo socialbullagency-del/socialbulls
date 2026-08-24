@@ -15,18 +15,12 @@
   <!-- Preconnect hints — start DNS/TLS handshake to third-party domains early -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://assets.calendly.com">
-  <link rel="preconnect" href="https://calendly.com">
-  <link rel="preconnect" href="https://www.youtube-nocookie.com">
-  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="preconnect" href="https://formspree.io" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://connect.facebook.net">
   <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://www.clarity.ms">
-  <!-- DNS-prefetch as fallback for older browsers -->
-  <link rel="dns-prefetch" href="https://assets.calendly.com">
-  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 
@@ -223,77 +217,112 @@
     }
     .h-foot::before { content: '*'; color: var(--gold); font-weight: 800; margin-right: 3px; }
 
-    /* ═══════════════ VSL ═══════════════ */
-    .vsl-wrap {
+    /* ═══════════════ HERO LEAD FORM ═══════════════ */
+    .h-form-wrap {
       position: relative;
-      max-width: 780px;
-      margin: 0 auto 44px;
+      max-width: 560px;
+      margin: 8px auto 0;
       opacity: 0; transform: translateY(20px);
     }
-    .vsl-glow {
+    .h-form-glow {
       position: absolute; inset: -30px;
-      background: radial-gradient(ellipse at center, rgba(212,175,55,.18), transparent 60%);
+      background: radial-gradient(ellipse at center, rgba(212,175,55,.16), transparent 60%);
       filter: blur(30px); z-index: -1; pointer-events: none;
     }
-    .vsl {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: #050505;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid rgba(212,175,55,.15);
-      box-shadow: 0 40px 100px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(212,175,55,.06);
+    .h-form {
+      background: rgba(10,10,10,.72);
+      border: 1px solid rgba(212,175,55,.22);
+      border-radius: 8px;
+      padding: 32px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 40px 100px -20px rgba(0,0,0,.7), 0 0 60px -10px rgba(212,175,55,.15);
+      text-align: left;
     }
-    .vsl video, .vsl iframe {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      border: 0;
-    }
-    .vsl-placeholder {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 20px; color: var(--white);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.55) 100%),
-        radial-gradient(ellipse at center, rgba(212,175,55,.12), transparent 60%),
-        #0A0A0A;
-      background-size: cover, cover, cover;
-      background-position: center;
-      cursor: none;
-      transition: opacity .3s;
-      z-index: 2;
-    }
-    .vsl-placeholder:hover { opacity: .92; }
-    .vsl-placeholder.has-thumb { color: var(--white); }
-    .vsl-play {
-      width: 90px; height: 90px;
-      border-radius: 50%; background: var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 20px 50px -10px rgba(212,175,55,.5);
-      animation: pulse-ring 2.5s ease-in-out infinite;
-    }
-    @keyframes pulse-ring {
-      0%,100% { box-shadow: 0 20px 50px -10px rgba(212,175,55,.5), 0 0 0 0 rgba(212,175,55,.4); }
-      50% { box-shadow: 0 20px 50px -10px rgba(212,175,55,.5), 0 0 0 26px rgba(212,175,55,0); }
-    }
-    .vsl-play svg { width: 34px; height: 34px; fill: var(--black); margin-left: 5px; }
-    .vsl-placeholder-label {
-      font-size: .68rem;
+    .h-form-title {
+      font-family: var(--f);
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--mu);
-    }
-    .vsl-caption {
+      letter-spacing: .01em;
+      color: var(--white);
+      margin-bottom: 6px;
       text-align: center;
-      font-size: .75rem;
-      color: var(--mu2);
-      margin-top: 16px;
-      font-weight: 500;
-      letter-spacing: .04em;
     }
-    .vsl-caption strong { color: var(--gold); }
+    .h-form-title em { font-style: italic; color: var(--gold); font-weight: 600; }
+    .h-form-note {
+      font-size: .72rem;
+      color: var(--mu);
+      text-align: center;
+      margin-bottom: 22px;
+      font-weight: 300;
+      letter-spacing: .02em;
+    }
+    .h-field {
+      margin-bottom: 12px;
+    }
+    .h-field input {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(212,175,55,.18);
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--white);
+      outline: none;
+      transition: border-color .22s, box-shadow .22s, background .22s;
+      cursor: text;
+    }
+    .h-field input::placeholder { color: rgba(248,248,246,.32); font-weight: 300; }
+    .h-field input:focus {
+      border-color: rgba(212,175,55,.6);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+      background: rgba(255,255,255,.06);
+    }
+    .h-form-submit {
+      width: 100%;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: var(--f); font-size: .95rem; font-weight: 800; letter-spacing: .03em;
+      color: var(--black); background: var(--gold);
+      border: 0; border-radius: 4px;
+      padding: 16px 22px;
+      cursor: pointer;
+      margin-top: 8px;
+      position: relative; overflow: hidden;
+      transition: background .2s, box-shadow .25s, transform .2s;
+      text-transform: uppercase;
+    }
+    .h-form-submit::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,.2) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .h-form-submit:hover:not(:disabled) {
+      background: var(--gold-lt);
+      box-shadow: 0 0 50px rgba(212,175,55,.38);
+    }
+    .h-form-submit:disabled { opacity: .65; cursor: default; }
+    .h-form-privacy {
+      display: block;
+      text-align: center;
+      font-size: .68rem;
+      color: var(--mu2);
+      margin-top: 14px;
+      font-weight: 300;
+      letter-spacing: .03em;
+    }
+    .h-form-error {
+      color: #ff6b6b;
+      font-size: .8rem;
+      font-weight: 500;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+    .h-form-error.show { display: block; }
+    @media (max-width: 640px) {
+      .h-form { padding: 24px 20px; }
+    }
 
     .h-acts { display: inline-flex; align-items: center; gap: 26px; opacity: 0; transform: translateY(18px); }
     .h-scroll {
@@ -620,55 +649,6 @@
       animation: pip 2s ease infinite;
     }
 
-    /* Book section (Calendly at top of page, right under hero) */
-    .book-section {
-      padding: 60px 60px 100px;
-      background: var(--black);
-      text-align: center;
-      position: relative;
-    }
-    .book-section .con { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-    .book-sub {
-      font-size: clamp(.95rem, 1.4vw, 1.1rem);
-      font-weight: 300; color: var(--mu);
-      max-width: 500px; margin: 0 auto 20px; line-height: 1.7;
-    }
-
-    /* Calendly inline embed — styled to match the design system */
-    .calendly-shell {
-      max-width: 900px; margin: 32px auto 0;
-      background: #050505;
-      border: 1px solid rgba(212,175,55,.22);
-      border-radius: 6px;
-      padding: 8px;
-      box-shadow: 0 40px 100px -20px rgba(0,0,0,.7), 0 0 60px -10px rgba(212,175,55,.12);
-      position: relative;
-    }
-    .calendly-inline-widget {
-      border-radius: 4px; overflow: hidden;
-      background: #0a0a0a;
-    }
-
-    /* MOBILE: give Calendly enough vertical room to show
-       calendar → time slots → booking form without an inner scrollbar */
-    @media (max-width: 900px) {
-      .book-section { padding: 50px 24px 80px; }
-      .calendly-shell { padding: 4px; margin-top: 26px; border-radius: 4px; }
-      .calendly-inline-widget {
-        width: 100% !important;
-        min-width: 0 !important;
-        height: 1150px !important;
-        min-height: 1150px !important;
-      }
-    }
-    @media (max-width: 480px) {
-      .book-section { padding: 40px 16px 70px; }
-      .calendly-inline-widget {
-        height: 1250px !important;
-        min-height: 1250px !important;
-      }
-    }
-
     /* ═══════════════ FOOTER ═══════════════ */
     #footer {
       background: #000;
@@ -727,7 +707,8 @@
       .btn-g { justify-content: center; width: 100%; }
       #cd, #cr { display: none; }
       body { cursor: auto; }
-      .btn-g, .btn-o, .n-cta, .vsl-placeholder { cursor: pointer; }
+      .btn-g, .btn-o, .n-cta, .h-form-submit { cursor: pointer; }
+      .h-field input { cursor: text; }
       .sticky-cta { display: block; }
       /* Force reveals to be visible on mobile so nothing gets stuck hidden */
       .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -781,7 +762,6 @@
 <!-- SECTION INDICATOR -->
 <div id="sect-ind">
   <div class="si-dot" data-sec="hero"></div>
-  <div class="si-dot" data-sec="book"></div>
   <div class="si-dot" data-sec="pain"></div>
   <div class="si-dot" data-sec="what"></div>
   <div class="si-dot" data-sec="proof"></div>
@@ -805,7 +785,7 @@
     <img src="logo.png" alt="" aria-hidden="true">
     Social Bulls
   </a>
-  <a href="#cta" class="n-cta magnetic">Book a Call</a>
+  <a href="#hero" class="n-cta magnetic">Get Started</a>
 </nav>
 
 <!-- ══════════════════════════════════════════════ HERO ══════════════════════════════════════════════ -->
@@ -828,49 +808,41 @@
     </p>
     <p class="h-foot" id="hfoot">But it's 100% legal (we checked)</p>
 
-    <!-- VSL -->
-    <div class="vsl-wrap" id="vslWrap">
-      <div class="vsl-glow"></div>
-      <div class="vsl" id="vslContainer" data-yt="FNBu4Xwr7Rw">
-        <div class="vsl-placeholder" id="vslPlaceholder">
-          <div class="vsl-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="vsl-placeholder-label">Watch the 90-second explainer</div>
-        </div>
-      </div>
-      <div class="vsl-caption"><strong>90 sec</strong> · How we book real appointments for real contractors</div>
-    </div>
+    <!-- LEAD FORM -->
+    <div class="h-form-wrap" id="formWrap">
+      <div class="h-form-glow"></div>
+      <form class="h-form" id="leadForm" action="https://formspree.io/f/mlgazzdr" method="POST" accept-charset="UTF-8" novalidate>
+        <div class="h-form-title">Get your <em>free strategy call</em></div>
+        <div class="h-form-note">Fill this out — we'll reach out within 24 hours.</div>
 
-    <div class="h-acts" id="hacts">
-      <a href="#book" class="btn-g big magnetic">
-        Book My Free Strategy Call
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-      </a>
+        <input type="hidden" name="_subject" value="New Contractor Lead — Social Bulls Landing">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="h-field">
+          <input type="text" name="name" placeholder="Full Name" required autocomplete="name" aria-label="Full Name">
+        </div>
+        <div class="h-field">
+          <input type="text" name="business" placeholder="Business Name" required autocomplete="organization" aria-label="Business Name">
+        </div>
+        <div class="h-field">
+          <input type="email" name="email" placeholder="Email Address" required autocomplete="email" aria-label="Email Address">
+        </div>
+        <div class="h-field">
+          <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" aria-label="Phone Number">
+        </div>
+
+        <button type="submit" class="h-form-submit" id="leadSubmit">
+          Send My Info
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </button>
+        <span class="h-form-privacy">Your info is safe. No spam — ever.</span>
+        <div class="h-form-error" id="leadError">Something went wrong. Please try again.</div>
+      </form>
     </div>
   </div>
   <div class="h-scroll" id="hscroll" aria-hidden="true">
     <div class="sbar"></div>
     <span>Scroll</span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════ BOOK (Calendly — moved to top) ══════════════════════════════════════════════ -->
-<section id="book" class="book-section">
-  <div class="con">
-    <div class="stag rv" style="justify-content:center; margin: 0 auto 18px;">Pick A Time</div>
-    <h2 class="h2 center rv d1" style="margin-bottom: 14px;">Book your free <em>strategy call.</em></h2>
-    <p class="book-sub rv d2">30 minutes. Zero pressure. We'll tell you if we can actually help — or send you on your way.</p>
-
-    <div class="cta-scarcity rv d2" style="margin: 0 auto 32px;">
-      Only a Handful of New Businesses per Month
-    </div>
-
-    <div class="calendly-shell rv d3">
-      <div class="calendly-inline-widget"
-           data-url="https://calendly.com/socialbullagency/30min?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f8f8f6&primary_color=d4af37"
-           style="min-width:320px;height:700px;"></div>
-    </div>
   </div>
 </section>
 
@@ -1005,16 +977,16 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════ FINAL CTA (scrolls back up to calendar) ══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════ FINAL CTA (scrolls back up to form) ══════════════════════════════════════════════ -->
 <section id="cta">
   <div class="con">
     <div class="stag rv" style="justify-content:center; margin: 0 auto 20px;">Ready When You Are</div>
     <h2 class="h2 rv d1">Stop paying for <em>leads</em> that go nowhere.</h2>
-    <p class="rv d2">Now that you've seen how it works — grab a slot on the calendar above and let's talk.</p>
+    <p class="rv d2">Now that you've seen how it works — drop your details and let's talk.</p>
 
-    <a href="#book" class="btn-g big magnetic rv d2" style="margin: 32px auto 0;">
-      Schedule My Call
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    <a href="#hero" class="btn-g big magnetic rv d2" style="margin: 32px auto 0;">
+      Get In Touch
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
     </a>
 
     <div class="cta-scarcity rv d3">
@@ -1022,35 +994,6 @@
     </div>
   </div>
 </section>
-
-<!-- Calendly widget script — LAZY LOADED for perf (loads on scroll or after 2.5s idle) -->
-<script>
-(function loadCalendlyLazy(){
-  const target = document.getElementById('book');
-  if (!target) return;
-  let loaded = false;
-  const load = () => {
-    if (loaded) return; loaded = true;
-    const s = document.createElement('script');
-    s.src = 'https://assets.calendly.com/assets/external/widget.js';
-    s.async = true;
-    document.body.appendChild(s);
-  };
-  // Load when user scrolls near the booking section
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) { load(); io.disconnect(); }
-    }, { rootMargin: '600px' });
-    io.observe(target);
-  }
-  // Fallback: load after 2.5s regardless — most users are still on the page by then
-  setTimeout(load, 2500);
-  // Or on any real interaction (touch/scroll) — earliest signal that someone's engaged
-  ['scroll','touchstart','pointerdown'].forEach(e => {
-    window.addEventListener(e, load, { once: true, passive: true });
-  });
-})();
-</script>
 
 <!-- ══════════════════════════════════════════════ FOOTER ══════════════════════════════════════════════ -->
 <footer id="footer">
@@ -1068,8 +1011,8 @@
 </footer>
 
 <!-- STICKY MOBILE CTA -->
-<a href="#book" class="sticky-cta" id="stickyCta">
-  Book My Free Strategy Call →
+<a href="#hero" class="sticky-cta" id="stickyCta">
+  Get My Free Strategy Call →
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1083,7 +1026,7 @@ const CD = document.getElementById('cd'), CR = document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;CD.style.left=mx+'px';CD.style.top=my+'px';});
 (function mv(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(mv);})();
-document.querySelectorAll('a,button,.what-row,.pain-card,.proof-week,.proof-quote,.vsl-placeholder').forEach(el=>{
+document.querySelectorAll('a,button,input,.what-row,.pain-card,.proof-week,.proof-quote,.h-form').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
@@ -1112,8 +1055,7 @@ function heroIn(){
     .to('#hh .li',{y:0,duration:1,stagger:.13,ease:'power4.out'},'-=.2')
     .to('#hsub',{opacity:1,y:0,duration:.7,ease:'power3.out'},'-=.5')
     .to('#hfoot',{opacity:1,duration:.5,ease:'power3.out'},'-=.4')
-    .to('#vslWrap',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.3')
-    .to('#hacts',{opacity:1,y:0,duration:.6,ease:'power3.out'},'-=.5')
+    .to('#formWrap',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.3')
     .to('#hscroll',{opacity:1,duration:.5},'-=.2');
 }
 
@@ -1162,7 +1104,7 @@ lenis.on('scroll', ({ scroll }) => {
 
 /* ═══════════════ SECTION DOTS ═══════════════ */
 const sdots = document.querySelectorAll('.si-dot');
-const sdSecs = ['hero','book','pain','what','proof','cta'];
+const sdSecs = ['hero','pain','what','proof','cta'];
 const sdObs = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (en.isIntersecting) {
@@ -1184,58 +1126,58 @@ const stickyIo = new IntersectionObserver(entries => {
 }, { rootMargin: '-100px 0px 0px 0px' });
 stickyIo.observe(hero);
 
-/* ═══════════════ CALENDLY — redirect to /thank-you/ after booking ═══════════════ */
-window.addEventListener('message', function(e) {
-  if (!e.data || typeof e.data !== 'object') return;
-  // Calendly fires 'calendly.event_scheduled' when a booking is confirmed
-  if (e.data.event === 'calendly.event_scheduled') {
-    // Optional: fire Meta Pixel + Google Ads conversion events
-    if (typeof fbq === 'function') { try { fbq('track', 'Schedule'); } catch(_) {} }
-    if (typeof gtag === 'function') { try { gtag('event', 'schedule', { event_category: 'engagement' }); } catch(_) {} }
-    // Redirect to the thank-you page
-    setTimeout(function(){ window.location.href = '/thank-you/'; }, 400);
-  }
-});
-
-/* ═══════════════ VSL — YouTube lazy-load (fast page + one-click play) ═══════════════ */
+/* ═══════════════ LEAD FORM — Formspree submit → redirect to /thank-you/ ═══════════════ */
 (function() {
-  const container = document.getElementById('vslContainer');
-  const placeholder = document.getElementById('vslPlaceholder');
-  if (!container || !placeholder) return;
+  const form = document.getElementById('leadForm');
+  const btn = document.getElementById('leadSubmit');
+  const errEl = document.getElementById('leadError');
+  if (!form || !btn) return;
 
-  const ytId = container.dataset.yt;
-  if (!ytId) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    errEl.classList.remove('show');
 
-  // Preload thumbnail — try maxres first, fallback to hqdefault
-  const thumb = new Image();
-  const setBg = (url) => {
-    placeholder.classList.add('has-thumb');
-    placeholder.style.backgroundImage =
-      `linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%), url('${url}')`;
-    placeholder.style.backgroundSize = 'cover';
-    placeholder.style.backgroundPosition = 'center';
-  };
-  thumb.onload = () => {
-    // YouTube returns a 120x90 fallback image if maxres doesn't exist; detect it
-    if (thumb.naturalWidth <= 120) {
-      setBg(`https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`);
-    } else {
-      setBg(thumb.src);
+    // Honeypot check
+    const gotcha = form.querySelector('input[name="_gotcha"]');
+    if (gotcha && gotcha.value) return;
+
+    // Basic validation
+    const data = new FormData(form);
+    if (!data.get('name') || !data.get('business') || !data.get('email') || !data.get('phone')) {
+      errEl.textContent = 'Please fill in all four fields.';
+      errEl.classList.add('show');
+      return;
     }
-  };
-  thumb.onerror = () => setBg(`https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`);
-  thumb.src = `https://i.ytimg.com/vi/${ytId}/maxresdefault.jpg`;
 
-  // On click, inject the YouTube iframe with autoplay
-  placeholder.addEventListener('click', () => {
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-    iframe.title = 'Social Bulls — 90-second explainer';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.allowFullscreen = true;
-    iframe.loading = 'lazy';
-    container.appendChild(iframe);
-    placeholder.style.display = 'none';
+    if (data.get('business')) {
+      data.set('_subject', 'New Contractor Lead — ' + data.get('business'));
+    }
+
+    const original = btn.innerHTML;
+    btn.innerHTML = 'Sending…';
+    btn.disabled = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        if (typeof fbq === 'function') { try { fbq('track', 'Lead'); } catch(_) {} }
+        if (typeof gtag === 'function') { try { gtag('event', 'generate_lead', { event_category: 'engagement' }); } catch(_) {} }
+        setTimeout(function() { window.location.href = '/thank-you/'; }, 300);
+      } else {
+        return res.json().then(function(body) {
+          const msg = (body && body.errors && body.errors.map(function(x){return x.message;}).join(', ')) || 'Something went wrong. Please try again.';
+          throw new Error(msg);
+        }).catch(function() { throw new Error('Something went wrong. Please try again.'); });
+      }
+    }).catch(function(err) {
+      btn.innerHTML = original;
+      btn.disabled = false;
+      errEl.textContent = (err && err.message) ? err.message : 'Something went wrong. Please try again.';
+      errEl.classList.add('show');
+    });
   });
 })();
 
