@@ -279,6 +279,39 @@
       box-shadow: 0 0 0 3px rgba(212,175,55,.08);
       background: rgba(255,255,255,.06);
     }
+    .h-field select.h-select {
+      width: 100%;
+      background-color: rgba(255,255,255,.04);
+      border: 1px solid rgba(212,175,55,.18);
+      border-radius: 4px;
+      padding: 14px 40px 14px 16px;
+      font-family: inherit;
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--white);
+      outline: none;
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23D4AF37' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      transition: border-color .22s, box-shadow .22s, background-color .22s;
+    }
+    .h-field select.h-select:focus {
+      border-color: rgba(212,175,55,.6);
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+      background-color: rgba(255,255,255,.06);
+    }
+    .h-field select.h-select:invalid { color: rgba(248,248,246,.32); }
+    .h-field select.h-select option { color: #111; background: #fff; }
+    .h-field-note {
+      font-size: .68rem;
+      color: var(--mu);
+      margin-top: 8px;
+      font-weight: 300;
+      letter-spacing: .02em;
+      line-height: 1.5;
+    }
+    .h-field-note::before { content: '↳ '; color: var(--gold); }
     .h-form-submit {
       width: 100%;
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -812,7 +845,7 @@
     <div class="h-form-wrap" id="formWrap">
       <div class="h-form-glow"></div>
       <form class="h-form" id="leadForm" action="https://formspree.io/f/mlgazzdr" method="POST" accept-charset="UTF-8" novalidate>
-        <div class="h-form-title">Get your <em>free strategy call</em></div>
+        <div class="h-form-title">Get your <em>free strategy session</em></div>
         <div class="h-form-note">Fill this out — we'll reach out within 24 hours.</div>
 
         <input type="hidden" name="_subject" value="New Contractor Lead — Social Bulls Landing">
@@ -825,14 +858,26 @@
           <input type="text" name="business" placeholder="Business Name" required autocomplete="organization" aria-label="Business Name">
         </div>
         <div class="h-field">
-          <input type="email" name="email" placeholder="Email Address" required autocomplete="email" aria-label="Email Address">
+          <select name="struggle" class="h-select" required aria-label="What are you struggling with?">
+            <option value="" disabled selected>What are you struggling with?</option>
+            <option value="Lead Generation">Lead Generation</option>
+            <option value="Online Presence">Online Presence</option>
+            <option value="Both">Both</option>
+          </select>
         </div>
         <div class="h-field">
           <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" aria-label="Phone Number">
+          <p class="h-field-note">We will use this phone number to call you or message you.</p>
+        </div>
+        <div class="h-field">
+          <input type="email" name="email" placeholder="Email Address" required autocomplete="email" aria-label="Email Address">
+        </div>
+        <div class="h-field">
+          <input type="text" name="website" placeholder="Business Website or Social Profile" required autocomplete="url" aria-label="Business Website or Social Profile">
         </div>
 
         <button type="submit" class="h-form-submit" id="leadSubmit">
-          Send My Info
+          Get My Free Strategy Session
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
         </button>
         <span class="h-form-privacy">Your info is safe. No spam — ever.</span>
@@ -1012,7 +1057,7 @@
 
 <!-- STICKY MOBILE CTA -->
 <a href="#hero" class="sticky-cta" id="stickyCta">
-  Get My Free Strategy Call →
+  Get My Free Strategy Session →
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1026,7 +1071,7 @@ const CD = document.getElementById('cd'), CR = document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;CD.style.left=mx+'px';CD.style.top=my+'px';});
 (function mv(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(mv);})();
-document.querySelectorAll('a,button,input,.what-row,.pain-card,.proof-week,.proof-quote,.h-form').forEach(el=>{
+document.querySelectorAll('a,button,input,select,.what-row,.pain-card,.proof-week,.proof-quote,.h-form').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
@@ -1143,8 +1188,8 @@ stickyIo.observe(hero);
 
     // Basic validation
     const data = new FormData(form);
-    if (!data.get('name') || !data.get('business') || !data.get('email') || !data.get('phone')) {
-      errEl.textContent = 'Please fill in all four fields.';
+    if (!data.get('name') || !data.get('business') || !data.get('struggle') || !data.get('phone') || !data.get('email') || !data.get('website')) {
+      errEl.textContent = 'Please fill in all fields.';
       errEl.classList.add('show');
       return;
     }
